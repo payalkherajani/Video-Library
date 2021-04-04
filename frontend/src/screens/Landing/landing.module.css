@@ -1,0 +1,17 @@
+.landing_container{
+    min-height: 100vh;
+    text-align: center;
+    margin-top: 1rem;
+}
+.landing__heading{
+    color: var(--primary);
+    letter-spacing: 5px;
+}
+
+.landing__cards{
+    margin-top: 1rem;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}

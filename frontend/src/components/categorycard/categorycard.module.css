@@ -1,0 +1,25 @@
+.categorycard_container{
+    margin: 1rem;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 5px 20px #474747;
+}
+
+.categorycard__image{
+    width: 100%;
+    min-height: 100%;
+}
+.card__imageoverlay{
+  position: absolute;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); 
+  color: var(--white);
+  width: 100%;
+  opacity:1;
+  color: white;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+
