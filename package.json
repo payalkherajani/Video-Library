@@ -7,5 +7,6 @@
     "client": "cd frontend && npm start"
   },
   "author": "Payal Kherajani",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {}
 }
