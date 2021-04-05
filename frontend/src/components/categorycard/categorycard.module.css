@@ -3,8 +3,14 @@
     width: 90%;
     position: relative;
     box-shadow: 0 5px 20px #474747;
+    transition: transform 200ms, opacity 400ms;
+    opacity: 0.7;
 }
 
+.categorycard_container:hover{
+    transform: scale(1.2);
+    opacity: 1;
+}
 .categorycard__image{
     width: 100%;
     min-height: 100%;
