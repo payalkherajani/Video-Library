@@ -17,7 +17,7 @@ const Landing = () => {
                     <img src={windowImage} alt='window-svg' className={styles.landing__window} />
 
                     <ReactPlayer
-                        url='http://www.youtube.com/watch?v=YdAIBlPVe9s'
+                        url='https://www.youtube.com/watch?v=YdAIBlPVe9s'
                         width='100%'
                         height='100%'
                     />
