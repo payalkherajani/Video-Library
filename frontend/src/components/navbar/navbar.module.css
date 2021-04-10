@@ -1,0 +1,24 @@
+.navbar_wrapper{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+}
+
+.start{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 5px;
+}
+
+.center{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.end{
+    margin-right: 5px;
+}
