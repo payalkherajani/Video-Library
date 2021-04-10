@@ -8,7 +8,9 @@ const initialState = {
     playlist: [],
     notes: [],
     watchlater: [],
-    liked: []
+    liked: [],
+    loading: false,
+    error: '',
 }
 
 export const Provider = ({ children }) => {
