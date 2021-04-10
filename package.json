@@ -8,5 +8,7 @@
   },
   "author": "Payal Kherajani",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "dateformat": "^4.5.1"
+  }
 }

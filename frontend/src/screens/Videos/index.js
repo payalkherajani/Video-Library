@@ -11,27 +11,27 @@ const Videos = () => {
     const { dispatch } = useCustomContext();
     const [open, setOpen] = useState(false);
 
-    // const getVideosofChannel = async (id) => {
+    const getVideosofChannel = async (id) => {
 
-    //     try {
-    //         dispatch({ type: GET_VIDEOS_LIST_REQUEST })
+        try {
+            dispatch({ type: GET_VIDEOS_LIST_REQUEST })
 
-    //         const { data: { items } } = await axios.get(`https://www.googleapis.com/youtube/v3/channels?id=${id}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&part=contentDetails`);
+            const { data: { items } } = await axios.get(`https://www.googleapis.com/youtube/v3/channels?id=${id}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&part=contentDetails`);
 
-    //         const uploadId = items[0].contentDetails.relatedPlaylists.uploads
+            const uploadId = items[0].contentDetails.relatedPlaylists.uploads
 
-    //         const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${uploadId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&fields=items(id,snippet(channelId,title,description,publishedAt))&part=snippet&maxResults=10`);
+            const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${uploadId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&fields=items(id,snippet(channelId,title,description,publishedAt,resourceId.videoId))&part=snippet&maxResults=2`);
 
-    //         dispatch({ type: VIDEOS_LIST_SUCCESS, payload: data.items });
+            dispatch({ type: VIDEOS_LIST_SUCCESS, payload: data.items });
 
-    //     } catch (err) {
-    //         dispatch({ type: VIDEOS_LIST_FAILURE, payload: 'Something went Wrong' })
-    //     }
-    // }
+        } catch (err) {
+            dispatch({ type: VIDEOS_LIST_FAILURE, payload: 'Something went Wrong' })
+        }
+    }
 
-    // useEffect(() => {
-    //     getVideosofChannel(id)
-    // }, [])
+    useEffect(() => {
+        getVideosofChannel(id)
+    }, [])
 
 
     return (
