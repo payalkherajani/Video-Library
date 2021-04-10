@@ -1,0 +1,11 @@
+.videos_layout{
+    display: flex;
+    gap: 1rem;
+    padding: 10px 5px;
+}
+.videos_drawer{
+    flex-basis: 20%;
+}
+.main{
+    flex-basis: 80%;
+}

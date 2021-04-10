@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import useCustomContext from '../../customHooks/Hook';
 import { VIDEOS_LIST_FAILURE, GET_VIDEOS_LIST_REQUEST, VIDEOS_LIST_SUCCESS } from '../../constants/type';
 import axios from 'axios';
-import { Navbar, Main } from '../../components';
+import { Navbar, Main, Drawer } from '../../components';
+import styles from './videos.module.css';
 
 const Videos = () => {
     const { id } = useParams();
-    const { dispatch } = useCustomContext()
+    const { dispatch } = useCustomContext();
+    const [open, setOpen] = useState(false);
 
     // const getVideosofChannel = async (id) => {
 
@@ -33,10 +35,15 @@ const Videos = () => {
 
 
     return (
-        <div>
-            <Navbar />
-            <Main />
-        </div>
+        <>
+            <Navbar setOpen={setOpen} />
+            <div className={styles.videos_layout}>
+                {
+                    open && <Drawer className={styles.videos_drawer} />
+                }
+                <Main className={styles.main} />
+            </div>
+        </>
     )
 }
 
