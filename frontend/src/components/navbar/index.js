@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './navbar.module.css';
 import Searchbar from '../searchbar';
+import { Link } from 'react-router-dom'
 
 const Navbar = ({ setOpen }) => {
 
@@ -8,7 +9,7 @@ const Navbar = ({ setOpen }) => {
         <div className={styles.navbar_wrapper}>
             <div className={styles.start}>
                 <i className="fas fa-bars" onClick={() => setOpen((open) => !open)}></i>
-                <p><strong>Khidki</strong></p>
+                <Link to='/'><p className={styles.heading}><strong>Khidki</strong></p></Link>
             </div>
 
             <div className={styles.center}>

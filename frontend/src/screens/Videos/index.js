@@ -8,7 +8,7 @@ import styles from './videos.module.css';
 
 const Videos = () => {
     const { id } = useParams();
-    const { dispatch } = useCustomContext();
+    const { state, dispatch } = useCustomContext();
     const [open, setOpen] = useState(false);
 
     const getVideosofChannel = async (id) => {
@@ -20,7 +20,7 @@ const Videos = () => {
 
             const uploadId = items[0].contentDetails.relatedPlaylists.uploads
 
-            const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${uploadId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&fields=items(id,snippet(channelId,title,description,publishedAt,resourceId.videoId))&part=snippet&maxResults=2`);
+            const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${uploadId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&fields=items(id,snippet(channelId,title,description,publishedAt,resourceId.videoId))&part=snippet&maxResults=10`);
 
             dispatch({ type: VIDEOS_LIST_SUCCESS, payload: data.items });
 
@@ -32,7 +32,6 @@ const Videos = () => {
     useEffect(() => {
         getVideosofChannel(id)
     }, [])
-
 
     return (
         <>

@@ -1,5 +1,4 @@
 .navbar_wrapper{
-    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -18,7 +17,17 @@
     align-items: center;
     gap: 5px;
 }
+.heading{
+    color: white;
+}
 
 .end{
     margin-right: 5px;
+}
+
+@media only screen and (min-width:768px){
+    .start , .center ,  .end{
+        font-size: 1.5rem;
+        gap: 10px;
+    }
 }

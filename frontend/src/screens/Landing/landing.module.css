@@ -1,7 +1,6 @@
 .landing_container{
     min-height: 100vh;
     text-align: center;
-    margin-top: 1rem;
 }
 .landing__heading{
     color: var(--primary);
