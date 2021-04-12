@@ -11,6 +11,8 @@ const initialState = {
     liked: [],
     loading: false,
     error: '',
+    singleVideo: {},
+    history: []
 }
 
 export const Provider = ({ children }) => {
