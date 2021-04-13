@@ -1,4 +1,4 @@
-import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY } from '../constants/type';
+import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER } from '../constants/type';
 
 
 export const reducer = (state, action) => {
@@ -37,9 +37,23 @@ export const reducer = (state, action) => {
 
         case CLEAR_HISTORY:
             return { ...state, history: [] }
+
+        case ADD_WATCH_LATER:
+            const findWatchLaterID = !![...state.watchlater].find((video) => video === payload);
+            if (findWatchLaterID) {
+                return state
+            }
+            return { ...state, watchlater: [...state.watchlater, payload] }
+
+        case REMOVE_WATCH_LATER:
+            const filterWatchLater = state.watchlater.filter((video) => video !== payload);
+            return { ...state, watchlater: filterWatchLater }
+
+        case CLEAR_WATCH_LATER:
+            return { ...state, watchlater: [] }
+
         default:
             return state
-
 
     }
 }

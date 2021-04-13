@@ -4,10 +4,14 @@ import useCustomContext from '../../customHooks/Hook';
 import ReactPlayer from 'react-player/youtube';
 import dateformat from 'dateformat';
 import { Link } from 'react-router-dom'
-import { ADD_TO_HISTORY } from '../../constants/type';
+import { ADD_TO_HISTORY, ADD_WATCH_LATER } from '../../constants/type';
 
 const Main = () => {
     const { state: { videos }, dispatch } = useCustomContext();
+
+    const addToWatchLater = (id) => {
+        dispatch({ type: ADD_WATCH_LATER, payload: id })
+    }
 
     return (
         <div className={styles.main_container}>
@@ -27,12 +31,22 @@ const Main = () => {
                             </div>
                             <p className={`${styles.main__video__content} lead`}>{title}</p>
                             <div className={styles.main__video_watch}>
+
                                 <p className="lead"> Published At: {dateformat(publishedAt, "isoDate")}</p>
-                                <Link to={{ pathname: `/video/watch?v=${resourceId.videoId}` }}> <button className="btn btn-danger color-red"><i className="fas fa-expand"></i></button></Link>
+
+                                <button className="btn btn-danger color-green" onClick={() => addToWatchLater(resourceId.videoId)}>
+                                    <i className="fas fa-clock"></i>
+                                </button>
+
+
+                                <Link to={{ pathname: `/video/watch?v=${resourceId.videoId}` }}>
+                                    <button className="btn btn-danger color-red">
+                                        <i className="fas fa-expand"></i>
+                                    </button>
+                                </Link>
                             </div>
 
                         </div>
-
                     )
                 })
             }
