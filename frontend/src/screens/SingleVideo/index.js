@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useCustomContext from '../../customHooks/Hook';
-import { SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY } from '../../constants/type';
+import { SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, ADD_WATCH_LATER, LIKE_VIDEO } from '../../constants/type';
 import axios from 'axios';
 import { Banner } from '../../components';
 import ReactPlayer from 'react-player';
@@ -13,7 +13,9 @@ const SingleVideo = () => {
     const useQuery = () => new URLSearchParams(useLocation().search);
     const query = useQuery();
     const videoId = query.get('v');
-    const { state: { singleVideo, history }, dispatch } = useCustomContext();
+    const { state, dispatch } = useCustomContext();
+    const { singleVideo } = state;
+    const [show, setShow] = useState(false);
 
     const getVideoDetails = async () => {
         try {
@@ -34,6 +36,12 @@ const SingleVideo = () => {
     useEffect(() => {
         getVideoDetails()
     }, [])
+
+    const addtoLikedVideos = (id) => {
+        dispatch({ type: LIKE_VIDEO, payload: id })
+        setShow((show) => !show)
+    }
+
 
     return (
         Object.keys(singleVideo).length === 0 ? null : (
@@ -58,19 +66,33 @@ const SingleVideo = () => {
                     <div className={styles.player__buttons}>
 
                         <button className="btn">
-                            <i className="fas fa-thumbs-up"></i>{" "}{singleVideo.statistics.likeCount}
+                            {
+                                show === true ? (
+                                    <>
+                                        <i className="fas fa-thumbs-up color-blue"></i>
+                                        {" "} {singleVideo.statistics.likeCount = Number(singleVideo.statistics.likeCount)}
+                                    </>
+
+                                ) : (
+                                    <>
+                                        <i className="fas fa-thumbs-up" onClick={() => addtoLikedVideos(videoId)}></i>
+                                        {" "} {singleVideo.statistics.likeCount}
+                                    </>
+                                )
+                            }
+
                         </button>
 
-                        <button className="btn">
+                        {/* <button className="btn">
                             <i className="fas fa-thumbs-down"></i>{" "}{singleVideo.statistics.dislikeCount}
-                        </button>
+                        </button> */}
 
                         <button className="btn">
                             <i className="fas fa-list-ul"></i>
                         </button>
 
                         <button className="btn">
-                            <i className="fas fa-plus"></i>
+                            <i className="fas fa-clock" onClick={() => dispatch({ type: ADD_WATCH_LATER, payload: videoId })}></i>
                         </button>
 
                     </div>

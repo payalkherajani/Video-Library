@@ -5,7 +5,6 @@ import ReactPlayer from 'react-player';
 import styles from './history.module.css';
 import { CLEAR_HISTORY, REMOVE_FROM_HISTORY } from '../../constants/type';
 
-
 const History = () => {
     const { state: { history }, dispatch } = useCustomContext();
 

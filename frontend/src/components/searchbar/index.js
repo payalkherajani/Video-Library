@@ -15,8 +15,6 @@ const SearchBar = () => {
         dispatch({ type: CLEAR_SEARCH })
     }
 
-    console.log({ state })
-
     return (
         <>
             <input type="text" placeholder="Search" className={styles.search} onChange={handleSearch} value={state.keyword} />

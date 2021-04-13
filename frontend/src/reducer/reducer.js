@@ -1,4 +1,4 @@
-import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER, SEARCH_KEYWORD, CLEAR_SEARCH } from '../constants/type';
+import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER, SEARCH_KEYWORD, CLEAR_SEARCH, LIKE_VIDEO, REMOVE_LIKE_VIDEO } from '../constants/type';
 
 
 export const reducer = (state, action) => {
@@ -58,6 +58,17 @@ export const reducer = (state, action) => {
 
         case CLEAR_SEARCH:
             return { ...state, keyword: '' }
+
+        case LIKE_VIDEO:
+            const likedVideosID = !![...state.liked].find((video) => video === payload)
+            if (likedVideosID) {
+                return state
+            }
+            return { ...state, liked: [...state.liked, payload] }
+
+        case REMOVE_LIKE_VIDEO:
+            const filterlikedvideos = state.liked.filter((video) => video !== payload)
+            return { ...state, liked: filterlikedvideos }
 
 
         default:
