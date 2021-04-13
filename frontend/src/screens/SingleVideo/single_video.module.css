@@ -29,7 +29,17 @@
 .player__custom_height{
     height: 300px;
 }
+.single_video_container_opacity{
+    opacity: 0.4;
+}
 
+.modal_container{
+    opacity: 1;
+    position: absolute;
+    top: 400px;
+    left: 200px;
+    background-color: white;
+}
 
 @media only screen and (min-width: 768px){
     .player_container{
