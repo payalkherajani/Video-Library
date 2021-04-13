@@ -37,7 +37,7 @@ const Drawer = () => {
 
                 <Link to={{ pathname: '/videos/playlists' }} className="color-white">
                     <div className={styles.list__item}>
-                        <i class="fas fa-list"></i>
+                        <i className="fas fa-list"></i>
                         <li>Playlists</li>
                     </div>
                 </Link>

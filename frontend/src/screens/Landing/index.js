@@ -20,6 +20,7 @@ const Landing = () => {
                         url='https://www.youtube.com/watch?v=YdAIBlPVe9s'
                         width='100%'
                         height='100%'
+                        controls={true}
                     />
 
                 </div>
