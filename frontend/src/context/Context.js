@@ -12,7 +12,8 @@ const initialState = {
     loading: false,
     error: '',
     singleVideo: {},
-    history: []
+    history: [],
+    keyword: ''
 }
 
 export const Provider = ({ children }) => {

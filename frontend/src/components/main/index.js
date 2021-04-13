@@ -7,16 +7,29 @@ import { Link } from 'react-router-dom'
 import { ADD_TO_HISTORY, ADD_WATCH_LATER } from '../../constants/type';
 
 const Main = () => {
-    const { state: { videos }, dispatch } = useCustomContext();
+    const { state, dispatch } = useCustomContext();
 
     const addToWatchLater = (id) => {
         dispatch({ type: ADD_WATCH_LATER, payload: id })
     }
 
+    const getData = (state, data) => {
+
+        let sortedVideos = [...data];
+
+        if (state.keyword) {
+            sortedVideos = sortedVideos.filter((video) => video.snippet.title.toLowerCase().includes(state.keyword));
+        }
+
+        return sortedVideos;
+    }
+
+    const filteredVideos = getData(state, state.videos)
+
     return (
         <div className={styles.main_container}>
             {
-                videos.map(({ id, snippet: { publishedAt, resourceId, title } }) => {
+                filteredVideos.map(({ id, snippet: { publishedAt, resourceId, title } }) => {
                     return (
 
                         <div key={id} className={styles.main__video}>

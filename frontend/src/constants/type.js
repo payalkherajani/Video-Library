@@ -16,3 +16,6 @@ export const CLEAR_WATCH_LATER = 'CLEAR_WATCH_LATER';
 
 export const LIKE_VIDEO = 'LIKE_VIDEO';
 export const DISLIKE_VIDEO = 'DISLIKE_VIDEO';
+
+export const SEARCH_KEYWORD = 'SEARCH_KEYWORD';
+export const CLEAR_SEARCH = 'CLEAR_SEARCH';

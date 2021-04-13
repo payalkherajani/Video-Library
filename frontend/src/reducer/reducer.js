@@ -1,4 +1,4 @@
-import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER } from '../constants/type';
+import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER, SEARCH_KEYWORD, CLEAR_SEARCH } from '../constants/type';
 
 
 export const reducer = (state, action) => {
@@ -51,6 +51,14 @@ export const reducer = (state, action) => {
 
         case CLEAR_WATCH_LATER:
             return { ...state, watchlater: [] }
+
+        case SEARCH_KEYWORD:
+            const toSearch = payload.toLowerCase();
+            return { ...state, keyword: toSearch }
+
+        case CLEAR_SEARCH:
+            return { ...state, keyword: '' }
+
 
         default:
             return state
