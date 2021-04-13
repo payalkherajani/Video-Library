@@ -1,4 +1,4 @@
-import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY } from '../constants/type';
+import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY } from '../constants/type';
 
 
 export const reducer = (state, action) => {
@@ -33,9 +33,10 @@ export const reducer = (state, action) => {
 
         case REMOVE_FROM_HISTORY:
             const filterHistory = state.history.filter((video) => video !== payload);
-            console.log({ filterHistory });
             return { ...state, history: filterHistory }
 
+        case CLEAR_HISTORY:
+            return { ...state, history: [] }
         default:
             return state
 

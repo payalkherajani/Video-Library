@@ -36,12 +36,19 @@
     width: 90%;
 }
 
-
+.clear_history{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
 @media only screen and (min-width: 768px){
     .history__container{
         flex-direction: row;
     }
     .history__video{
         width: calc(100% / 3);
+    }
+    .no_history{
+        width: 100%;
     }
 }
