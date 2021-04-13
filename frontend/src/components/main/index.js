@@ -28,7 +28,7 @@ const Main = () => {
                             <p className={`${styles.main__video__content} lead`}>{title}</p>
                             <div className={styles.main__video_watch}>
                                 <p className="lead"> Published At: {dateformat(publishedAt, "isoDate")}</p>
-                                <Link to={{ pathname: `/video/watch?v=${resourceId.videoId}` }}> <button className="btn btn-danger color-red"><i className="fas fa-play"></i></button></Link>
+                                <Link to={{ pathname: `/video/watch?v=${resourceId.videoId}` }}> <button className="btn btn-danger color-red"><i className="fas fa-expand"></i></button></Link>
                             </div>
 
                         </div>

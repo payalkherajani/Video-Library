@@ -8,7 +8,7 @@ import styles from './videos.module.css';
 
 const Videos = () => {
     const { id } = useParams();
-    const { state, dispatch } = useCustomContext();
+    const { dispatch } = useCustomContext();
     const [open, setOpen] = useState(false);
 
     const getVideosofChannel = async (id) => {
@@ -35,12 +35,16 @@ const Videos = () => {
 
     return (
         <>
-            <Navbar setOpen={setOpen} />
+            <Navbar setOpen={setOpen} landing={true} />
             <div className={styles.videos_layout}>
-                {
-                    open && <Drawer className={styles.videos_drawer} />
-                }
-                <Main className={styles.main} />
+
+                <div className={`${open === true ? (styles.videos_drawer) : (styles.videos_drawer_display_none)}`} >
+                    <Drawer />
+                </div>
+
+                <div className={`${open === true ? (styles.main) : (styles.main_fullwidth)}`} >
+                    <Main />
+                </div>
             </div>
         </>
     )

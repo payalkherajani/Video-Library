@@ -12,3 +12,7 @@ a{
 .color-red{
     background-color: #f00;
 }
+
+.color-white{
+    color: white;
+}
