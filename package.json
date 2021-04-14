@@ -4,7 +4,8 @@
   "description": "Videos of Travelling",
   "main": "server.js",
   "scripts": {
-    "client": "cd frontend && npm start"
+    "client": "cd frontend && npm start",
+    "build": "cd frontend && npm run build"
   },
   "author": "Payal Kherajani",
   "license": "MIT",
