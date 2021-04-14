@@ -1,11 +1,12 @@
 import { createContext, useReducer } from 'react';
 import { reducer } from '../reducer/reducer';
+import { v4 as uuidv4 } from 'uuid'
 
 export const Context = createContext({});
 
 const initialState = {
     videos: [],
-    playlist: [],
+    playlist: [{ id: uuidv4(), name: 'fav', videos: [] }],
     notes: [],
     watchlater: [],
     liked: [],
@@ -13,7 +14,7 @@ const initialState = {
     error: '',
     singleVideo: {},
     history: [],
-    keyword: ''
+    keyword: '',
 }
 
 export const Provider = ({ children }) => {

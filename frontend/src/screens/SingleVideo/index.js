@@ -52,7 +52,7 @@ const SingleVideo = () => {
                     <Banner channelId={singleVideo.snippet.channelId} />
                 </div>
 
-                <div className={showModal === true ? (styles.single_video_container_opacity) : (styles.player_container)}>
+                <div className={styles.player_container}>
 
                     <div className={styles.player__custom_height}>
                         <ReactPlayer
@@ -103,12 +103,12 @@ const SingleVideo = () => {
                         <p className="lead">{singleVideo.statistics.viewCount}{" "}Views</p>
                         <p className="lead">{dateformat(singleVideo.snippet.publishedAt, "isoDate")}</p>
                     </div>
-                </div>
 
-                <div className={styles.modal_container}>
-                    {
-                        showModal === true ? (<Modal />) : (null)
-                    }
+                    <div className={styles.modal_container}>
+                        {
+                            showModal === true ? (<Modal setShowModal={setShowModal} videoId={videoId} />) : (null)
+                        }
+                    </div>
                 </div>
 
             </div>

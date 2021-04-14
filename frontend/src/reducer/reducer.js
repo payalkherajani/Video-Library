@@ -1,4 +1,4 @@
-import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER, SEARCH_KEYWORD, CLEAR_SEARCH, LIKE_VIDEO, REMOVE_LIKE_VIDEO } from '../constants/type';
+import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER, SEARCH_KEYWORD, CLEAR_SEARCH, LIKE_VIDEO, REMOVE_LIKE_VIDEO, ADD_ITEM_TO_PLAYLIST, REMOVE_ITEM_FROM_PLAYLIST, ADD_NEW_PLAYLIST, DELETE_PLAYLIST, TOGGLE_CHECKED } from '../constants/type';
 
 
 export const reducer = (state, action) => {
@@ -70,6 +70,51 @@ export const reducer = (state, action) => {
             const filterlikedvideos = state.liked.filter((video) => video !== payload)
             return { ...state, liked: filterlikedvideos }
 
+        case ADD_ITEM_TO_PLAYLIST:
+            const { playlistID, videoId } = payload;
+
+            const iteminPlaylist = [...state.playlist].map((one) => {
+                if (one.id === playlistID) {
+                    const videoPresent = !!one.videos.find((video) => video === videoId);
+                    if (videoPresent) {
+                        return one
+                    }
+                    else {
+                        const newOne = { ...one, videos: [...one.videos, videoId] }
+                        return newOne
+                    }
+                }
+                return one
+            })
+
+            return { ...state, playlist: iteminPlaylist }
+
+        case REMOVE_ITEM_FROM_PLAYLIST:
+
+            const { pid, vid } = payload;
+
+            const removeItemfromplaylist = [...state.playlist].map((one) => {
+                if (one.id === pid) {
+                    const videoPresent = !!one.videos.find((video) => video === vid);
+                    if (videoPresent) {
+                        const filtervideo = one.videos.filter((video) => video !== vid)
+                        return { ...one, videos: filtervideo }
+                    }
+                    else {
+                        return one
+                    }
+                }
+                return one
+            })
+
+            return { ...state, playlist: removeItemfromplaylist }
+
+        case ADD_NEW_PLAYLIST:
+            return { ...state, playlist: [...state.playlist, payload] }
+
+        case DELETE_PLAYLIST:
+            const filterPlaylist = [...state.playlist].filter((one) => one.id !== payload)
+            return { ...state, playlist: filterPlaylist }
 
         default:
             return state

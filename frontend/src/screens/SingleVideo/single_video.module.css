@@ -29,16 +29,19 @@
 .player__custom_height{
     height: 300px;
 }
-.single_video_container_opacity{
-    opacity: 0.4;
-}
 
 .modal_container{
     opacity: 1;
     position: absolute;
-    top: 400px;
-    left: 200px;
-    background-color: white;
+    bottom: 120px;
+    left: 15px;
+}
+
+@media only screen and (min-width: 400px){
+    .modal_container{
+        bottom: 300px;
+        left: 55px;
+    }
 }
 
 @media only screen and (min-width: 768px){
@@ -50,6 +53,10 @@
     }
     .player__custom_height, .player__buttons,.player__contents {
       width: 80%;
+    }
+    .modal_container{
+       bottom: 500px;
+       left: 100px;
     }
 }
 
@@ -64,5 +71,9 @@
     .player__custom_height{
       height: 500px;
     }
+    .modal_container{
+        bottom: 0px;
+        left: 500px;
+     }
 
 }
