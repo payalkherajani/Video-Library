@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styles from './modal.module.css';
 import useCustomContext from '../../customHooks/Hook';
-import { ADD_ITEM_TO_PLAYLIST, ADD_NEW_PLAYLIST } from '../../constants/type';
+import { ADD_NEW_PLAYLIST, TOGGLE_PLAYLIST_ITEM } from '../../constants/type';
 import { v4 as uuidv4 } from 'uuid'
 
 const Modal = ({ setShowModal, videoId }) => {
 
     const { state, dispatch } = useCustomContext();
-    const { playlist, checked } = state;
+    const { playlist } = state;
 
     const [formData, setFormData] = useState({
         id: uuidv4(),
@@ -17,17 +17,13 @@ const Modal = ({ setShowModal, videoId }) => {
 
     const { name, videos, id } = formData;
 
-    const handleChange = (e) => {
-
+    const handleChange = (e, playlistID, videoId) => {
+        dispatch({ type: TOGGLE_PLAYLIST_ITEM, payload: { playlistID, videoId } })
     }
 
-    const check = (e) => {
-
+    const check = (videoId, videos) => {
+        return videos.some((val) => val === videoId)
     }
-
-    // const addIteminPlaylist = (e, playlistID) => {
-    //     dispatch({ type: ADD_ITEM_TO_PLAYLIST, payload: { playlistID, videoId } })
-    // }
 
     const handleFormData = (e) => {
         const { name, value } = e.target;
@@ -60,9 +56,9 @@ const Modal = ({ setShowModal, videoId }) => {
                 <div className="modal-body">
                     {
                         playlist.length > 0 ? (
-                            playlist.map(({ id, name }) => (
+                            playlist.map(({ id, name, videos }) => (
                                 <div className={styles.one_playlist} key={id}>
-                                    <input type="checkbox" onChange={handleChange} checked={check(id, videoId)} />
+                                    <input type="checkbox" onChange={(e) => handleChange(e, id, videoId)} checked={check(videoId, videos)} />
                                     <p>{name}</p>
                                 </div>
                             ))
