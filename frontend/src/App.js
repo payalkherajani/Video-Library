@@ -15,6 +15,7 @@ const App = () => {
           <Route path="/videos/history" element={<History />} />
           <Route path="/videos/watchlater" element={<WatchLater />} />
           <Route path="/videos/liked" element={<LikedVideos />} />
+
         </Routes>
       </Router>
     </div>
