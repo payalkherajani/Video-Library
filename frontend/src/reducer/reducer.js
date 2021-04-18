@@ -1,4 +1,4 @@
-import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER, SEARCH_KEYWORD, CLEAR_SEARCH, LIKE_VIDEO, REMOVE_LIKE_VIDEO, ADD_NEW_PLAYLIST, DELETE_PLAYLIST, TOGGLE_PLAYLIST_ITEM } from '../constants/type';
+import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER, SEARCH_KEYWORD, CLEAR_SEARCH, LIKE_VIDEO, REMOVE_LIKE_VIDEO, ADD_NEW_PLAYLIST, DELETE_PLAYLIST, TOGGLE_PLAYLIST_ITEM, REMOVE_ITEM_FROM_PLAYLIST } from '../constants/type';
 
 
 export const reducer = (state, action) => {
@@ -96,6 +96,26 @@ export const reducer = (state, action) => {
         case DELETE_PLAYLIST:
             const filterPlaylist = [...state.playlist].filter((one) => one.id !== payload)
             return { ...state, playlist: filterPlaylist }
+
+        case REMOVE_ITEM_FROM_PLAYLIST:
+            const { playlistId, id } = payload;
+
+            const removeitemfromplaylist = [...state.playlist].map((one) => {
+                if (one.id === playlistId) {
+                    const videoPresent = !!one.videos.find((video) => video === id);
+                    if (videoPresent) {
+                        const filtervideo = one.videos.filter((video) => video !== id)
+                        return { ...one, videos: filtervideo }
+                    }
+                    else {
+                        return one
+                    }
+                }
+                return one
+            })
+
+            return { ...state, playlist: removeitemfromplaylist }
+
 
         default:
             return state

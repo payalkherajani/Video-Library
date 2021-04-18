@@ -1,6 +1,7 @@
 import React from 'react';
 import useCustomContext from '../../customHooks/Hook';
 import { Navbar, PlaylistCard } from '../../components';
+import styles from './playlist.module.css';
 
 const Playlists = () => {
 
@@ -10,9 +11,11 @@ const Playlists = () => {
         <>
             <Navbar landing={false} />
 
-            {
-                playlist.map((list) => <PlaylistCard list={list} key={list.id} />)
-            }
+            <div className={styles.playlists}>
+                {
+                    playlist.map((list) => <PlaylistCard list={list} key={list.id} />)
+                }
+            </div>
 
         </>
     )
