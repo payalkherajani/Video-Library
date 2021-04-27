@@ -1,0 +1,26 @@
+.videos_layout{
+    display: flex;
+    gap: 1rem;
+    padding: 10px 5px;
+}
+.videos_drawer{
+    flex-basis: 30%;
+}
+.main{
+    flex-basis: 70%;
+}
+.main_fullwidth{
+    flex-basis: 100%;
+}
+.videos_drawer_display_none{
+    display: none;
+}
+
+@media only screen and (min-width: 768px){
+    .videos_drawer{
+        flex-basis: 20%;
+    }
+    .main{
+        flex-basis: 80%;
+    }
+}

@@ -1,0 +1,48 @@
+.navbar_wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+}
+
+.start{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 5px;
+}
+
+.center{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.heading{
+    color: white;
+}
+
+.end{
+    margin-right: 5px;
+}
+.custom__navbar{
+    display: flex;
+    padding: 10px 5px;
+    justify-content: center;
+}
+.navbar__items{
+    display: flex;
+    gap: 2rem;
+ 
+}
+.list__item{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+@media only screen and (min-width:768px){
+    .start , .center ,  .end{
+        font-size: 1.5rem;
+        gap: 10px;
+    }
+}

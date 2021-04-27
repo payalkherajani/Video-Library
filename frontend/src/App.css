@@ -1,0 +1,25 @@
+
+.App{
+    min-height: 100vh;
+    background-color: var(--primary);
+    color: white;
+}
+
+a{
+    color: var(--primary);
+}
+
+.color-red{
+    background-color: #f00;
+}
+
+.color-white{
+    color: white;
+}
+
+.color-green{
+    background-color: #059669;
+}
+.color-blue{
+    color: #3B82F6;
+}

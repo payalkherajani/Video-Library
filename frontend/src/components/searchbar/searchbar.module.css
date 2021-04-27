@@ -1,0 +1,14 @@
+.search{
+    padding: 5px;
+    background-color: #F3F4F6;
+    border: none;
+    outline: none;
+    min-width: 100px;
+}
+
+@media only screen and (min-width: 768px){
+    .search{
+        min-width: 500px;
+        padding: 10px;
+    }
+}
