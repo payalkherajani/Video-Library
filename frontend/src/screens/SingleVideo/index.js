@@ -14,7 +14,6 @@ const SingleVideo = () => {
     const query = useQuery();
     const videoId = query.get('v');
     const { state, dispatch } = useCustomContext();
-    console.log({ state })
     const { singleVideo } = state;
     const [show, setShow] = useState(false);
     const [showModal, setShowModal] = useState(false);

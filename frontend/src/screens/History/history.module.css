@@ -19,7 +19,6 @@
 
 .history__video_delete{
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
     margin-right: 1rem;
