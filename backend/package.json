@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "Videos of Travelling",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "server": "nodemon server.js",
     "start": "node server.js"
   },
   "author": "Payal Kherajani",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
