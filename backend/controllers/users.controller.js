@@ -1,4 +1,5 @@
 import User from '../models/users.model.js'
+import { mail } from '../utils/mail.js'
 
 //@route   POST api/users/register
 //@desc    Register new User
@@ -23,9 +24,8 @@ const register = async (req, res) => {
             email
         })
 
-        await user.save()
-        //send email here for successful registration
-
+        // await user.save()
+        mail(name, email)
         res.status(200).json({ success: true, message: 'Registration Successfull ' })
 
     } catch (err) {
