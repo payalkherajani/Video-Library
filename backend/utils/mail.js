@@ -1,36 +1,40 @@
-import nodemailer from 'nodemailer'
+import mailjet from 'node-mailjet';
 import dotenv from 'dotenv'
 dotenv.config()
+import { template } from './template.js'
 
-export const mail = (name, email) => {
+const mailjetconn = mailjet.connect(process.env.MAILJET_USERNAME, process.env.MAILJET_PASSWORD);
 
-    const transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-            user: process.env.ETH_USER, // generated ethereal user
-            pass: process.env.ETH_PASS, // generated ethereal password
-        },
-        tls: {
-            rejectUnauthorized: false
-        }
-    });
-
-    const mailDetails = {
-        from: process.env.ETH_USER, // sender address
-        to: `${email}`, //receiver
-        subject: `Khidki`, // Subject line
-        text: `Welcome ${name}, You have successfull registered on Khidki`, // plain text body
-        html: "<b>Welcome, Registration Successfull</b>", // html body
+export const mail = async (name, email) => {
+    try {
+        const request = await mailjetconn.post("send", { version: "v3.1" }).request({
+            Messages: [
+                {
+                    "From": {
+                        "Email": "payal.kherajani19@gmail.com",
+                        "Name": "KHIDKI"
+                    },
+                    "To": [
+                        {
+                            "Email": `${email}`,
+                            "Name": `${name}`
+                        }
+                    ],
+                    "Subject": "Khidki Registration Successfull ",
+                    "TextPart": `Welcome User ${name}`,
+                    "HTMLPart": template(name),
+                    "CustomID": "AppGettingStartedTest"
+                },
+            ],
+        });
+        return { msg: "Email sent", status: true, data: request };
+    } catch (e) {
+        console.log(e)
+        console.log(e.message);
+        return {
+            msg: e.message,
+            status: false,
+        };
     }
+};
 
-    transporter.sendMail(mailDetails, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Message sent: %s', info.messageId);
-        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-    });
-
-}

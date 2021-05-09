@@ -25,7 +25,8 @@ const register = async (req, res) => {
         })
 
         // await user.save()
-        mail(name, email)
+        const data = await mail(name, email)
+        console.log({ data })
         res.status(200).json({ success: true, message: 'Registration Successfull ' })
 
     } catch (err) {
