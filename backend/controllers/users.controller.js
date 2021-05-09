@@ -37,6 +37,9 @@ const register = async (req, res) => {
     }
 }
 
+//@route   POST api/users/generateotp
+//@desc    Generate 6-digit OTP
+//@access  Public
 const generatedOTP = async (req, res) => {
     try {
         const { email } = req.body;
@@ -58,6 +61,9 @@ const generatedOTP = async (req, res) => {
 }
 
 
+//@route   POST api/users/login
+//@desc    Login
+//@access  Public
 const login = async (req, res) => {
     try {
         const { email, otp } = req.body;
