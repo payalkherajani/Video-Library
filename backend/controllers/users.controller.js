@@ -3,6 +3,8 @@ import { mail } from '../utils/mail.js';
 import { generateOTP } from '../utils/generateOTP.js';
 import { OTPMail } from '../utils/sendOTPMail.js';
 import { generateJWToken } from '../utils/generateToken.js';
+import gravatar from 'gravatar';
+import normalize from 'normalize-url';
 import _ from 'lodash';
 
 //@route   POST api/users/register
@@ -22,10 +24,19 @@ const register = async (req, res) => {
         if (userExists) {
             return res.status(400).json({ success: false, message: 'Email already in use, Try different email' })
         }
+        const avatar = normalize(
+            gravatar.url(email, {
+                s: '200',
+                r: 'pg',
+                d: 'mm'
+            }),
+            { forceHttps: true }
+        );
 
         const user = await new User({
             name,
-            email
+            email,
+            avatar
         })
 
         await user.save()
@@ -33,6 +44,7 @@ const register = async (req, res) => {
         res.status(200).json({ success: true, message: 'Registration Successfull ' })
 
     } catch (err) {
+        console.log(err);
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }

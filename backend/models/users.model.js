@@ -16,6 +16,9 @@ const userModel = new Schema(
             type: Number,
             default: null
         },
+        avatar: {
+            type: String
+        },
         is_active: {
             type: Boolean,
             default: true
