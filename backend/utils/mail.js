@@ -11,7 +11,7 @@ export const mail = async (name, email) => {
             Messages: [
                 {
                     "From": {
-                        "Email": "payal.kherajani19@gmail.com",
+                        "Email": process.env.SENDER_EMAIL,
                         "Name": "KHIDKI"
                     },
                     "To": [

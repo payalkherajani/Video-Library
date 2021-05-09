@@ -24,16 +24,13 @@ const register = async (req, res) => {
             email
         })
 
-        // await user.save()
+        await user.save()
         const data = await mail(name, email)
-        console.log({ data })
         res.status(200).json({ success: true, message: 'Registration Successfull ' })
 
     } catch (err) {
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }
-
-
 
 export { register };
