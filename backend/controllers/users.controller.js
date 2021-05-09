@@ -1,5 +1,8 @@
 import User from '../models/users.model.js'
 import { mail } from '../utils/mail.js'
+import { generateOTP } from '../utils/generateOTP.js'
+import { OTPMail } from '../utils/sendOTPMail.js';
+import _ from 'lodash';
 
 //@route   POST api/users/register
 //@desc    Register new User
@@ -25,7 +28,7 @@ const register = async (req, res) => {
         })
 
         await user.save()
-        const data = await mail(name, email)
+        await mail(name, email)
         res.status(200).json({ success: true, message: 'Registration Successfull ' })
 
     } catch (err) {
@@ -33,4 +36,48 @@ const register = async (req, res) => {
     }
 }
 
-export { register };
+const generatedOTP = async (req, res) => {
+    try {
+        const { email } = req.body;
+        let verifyUser = await User.findOne({ email })
+        if (!verifyUser) {
+            return res.status(400).json({ success: false, message: 'Invalid Email' })
+        }
+        const OTP = Number(generateOTP());
+        // await OTPMail(OTP, email);
+        const updateUser = {
+            otp: OTP
+        }
+        verifyUser = _.extend(verifyUser, updateUser)
+        await verifyUser.save()
+        res.status(200).send(verifyUser)
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ success: false, message: 'Server Error' })
+    }
+}
+
+
+const login = async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+        const verifyUser = await User.findOne({ email })
+
+        if (!verifyUser) {
+            return res.status(400).json({ success: false, message: 'Invalid Email' })
+        }
+
+        if (otp === verifyUser.otp) {
+            //jwt token
+            return res.status(200).json({ success: true, message: 'Successfull Login' })
+            //clear otp
+        }
+
+        //clear otp from database
+        res.status(400).json({ success: false, message: 'Invalid OTP' })
+
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server Error' })
+    }
+}
+export { register, generatedOTP, login };
