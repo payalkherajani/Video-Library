@@ -13,7 +13,8 @@ const userModel = new Schema(
             required: "Email is required"
         },
         otp: {
-            type: Number
+            type: Number,
+            default: null
         },
         is_active: {
             type: Boolean,

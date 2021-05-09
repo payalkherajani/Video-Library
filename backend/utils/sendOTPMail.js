@@ -5,7 +5,7 @@ import { templateOTP } from './templateOTP.js'
 
 const mailjetconn = mailjet.connect(process.env.MAILJET_USERNAME, process.env.MAILJET_PASSWORD);
 
-export const OTPMail = async (email, OTP) => {
+export const OTPMail = async (OTP, email) => {
     try {
         const request = await mailjetconn.post("send", { version: "v3.1" }).request({
             Messages: [

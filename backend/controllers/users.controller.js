@@ -1,7 +1,8 @@
-import User from '../models/users.model.js'
-import { mail } from '../utils/mail.js'
-import { generateOTP } from '../utils/generateOTP.js'
+import User from '../models/users.model.js';
+import { mail } from '../utils/mail.js';
+import { generateOTP } from '../utils/generateOTP.js';
 import { OTPMail } from '../utils/sendOTPMail.js';
+import { generateJWToken } from '../utils/generateToken.js';
 import _ from 'lodash';
 
 //@route   POST api/users/register
@@ -44,7 +45,7 @@ const generatedOTP = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Invalid Email' })
         }
         const OTP = Number(generateOTP());
-        // await OTPMail(OTP, email);
+        const data = await OTPMail(OTP, email);
         const updateUser = {
             otp: OTP
         }
@@ -52,7 +53,6 @@ const generatedOTP = async (req, res) => {
         await verifyUser.save()
         res.status(200).send(verifyUser)
     } catch (err) {
-        console.log(err)
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }
@@ -61,19 +61,21 @@ const generatedOTP = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { email, otp } = req.body;
-        const verifyUser = await User.findOne({ email })
+        let verifyUser = await User.findOne({ email })
 
         if (!verifyUser) {
             return res.status(400).json({ success: false, message: 'Invalid Email' })
         }
 
         if (otp === verifyUser.otp) {
-            //jwt token
-            return res.status(200).json({ success: true, message: 'Successfull Login' })
-            //clear otp
+            verifyUser = _.extend(verifyUser, { otp: null })
+            await verifyUser.save()
+            const token = generateJWToken(verifyUser._id);
+            return res.status(200).send({ token })
         }
 
-        //clear otp from database
+        verifyUser = _.extend(verifyUser, { otp: null })
+        await verifyUser.save()
         res.status(400).json({ success: false, message: 'Invalid OTP' })
 
     } catch (err) {
