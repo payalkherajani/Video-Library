@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './login.module.css';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import OtpInput from 'react-otp-input';
 import { toast } from 'react-toastify';
 import useCustomContext from '../../customHooks/Hook';
@@ -51,55 +51,57 @@ const Login = () => {
     }
 
     return (
-        <div className={styles.register_div}>
-            <div className={styles.register_form}>
+        localStorage.getItem('token') ? (<Navigate to="/landing" />) : (
+            <div className={styles.register_div}>
+                <div className={styles.register_form}>
 
-                <div className={styles.form_div}>
-                    {
-                        show === false ? (
-                            <form onSubmit={onGenerateOTP} style={{ padding: "1rem" }}>
-                                <h1 className={styles.heading}>Login</h1>
+                    <div className={styles.form_div}>
+                        {
+                            show === false ? (
+                                <form onSubmit={onGenerateOTP} style={{ padding: "1rem" }}>
+                                    <h1 className={styles.heading}>Login</h1>
 
-                                <div className={styles.form_container}>
-                                    <input
-                                        className={styles.input_login}
-                                        placeholder="Email"
-                                        type="email"
-                                        name="email"
-                                        value={email}
-                                        onChange={handleFormData}
-                                    />
-                                </div>
-                                <button className={`btn btn-primary ${styles.login_button}`}>Generate OTP</button>
-                                {/* <p>Note:  You may get OTP in spam folder of your mail</p> */}
-                                <p className={styles.check_status}> Don't have Account ? <Link to='/register' className={styles.text_white}>REGISTER</Link> </p>
-                            </form>
-                        ) : (
-                            <form onSubmit={loginUser}>
-                                <h1 className={styles.heading}>Login</h1>
+                                    <div className={styles.form_container}>
+                                        <input
+                                            className={styles.input_login}
+                                            placeholder="Email"
+                                            type="email"
+                                            name="email"
+                                            value={email}
+                                            onChange={handleFormData}
+                                        />
+                                    </div>
+                                    <button className={`btn btn-primary ${styles.login_button}`}>Generate OTP</button>
+                                    {/* <p>Note:  You may get OTP in spam folder of your mail</p> */}
+                                    <p className={styles.check_status}> Don't have Account ? <Link to='/register' className={styles.text_white}>REGISTER</Link> </p>
+                                </form>
+                            ) : (
+                                <form onSubmit={loginUser}>
+                                    <h1 className={styles.heading}>Login</h1>
 
-                                <div className={styles.form_container} style={{ color: "black" }}>
-                                    <OtpInput
-                                        onChange={handleOTP}
-                                        value={otp}
-                                        numInputs={6}
-                                        separator={<span>-</span>}
-                                        inputStyle={styles.inputStyle}
-                                        isInputNum={true}
-                                        type="number"
-                                        shouldAutoFocus={true}
-                                    />
-                                </div>
-                                <button className={`btn btn-primary ${styles.login_button}`}>Login</button>
-                            </form>
-                        )
-                    }
-                </div>
+                                    <div className={styles.form_container} style={{ color: "black" }}>
+                                        <OtpInput
+                                            onChange={handleOTP}
+                                            value={otp}
+                                            numInputs={6}
+                                            separator={<span>-</span>}
+                                            inputStyle={styles.inputStyle}
+                                            isInputNum={true}
+                                            type="number"
+                                            shouldAutoFocus={true}
+                                        />
+                                    </div>
+                                    <button className={`btn btn-primary ${styles.login_button}`}>Login</button>
+                                </form>
+                            )
+                        }
+                    </div>
 
-                <div className={styles.image}>
+                    <div className={styles.image}>
+                    </div>
                 </div>
             </div>
-        </div>
+        )
     )
 }
 
