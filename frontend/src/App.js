@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { Landing, Videos, SingleVideo, History, WatchLater, LikedVideos, Playlists, SinglePlaylist, Register } from './screens';
+import { Landing, Videos, SingleVideo, History, WatchLater, LikedVideos, Playlists, SinglePlaylist, Register, Login } from './screens';
 import { Footer } from './components';
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
     <div className="App">
       <Router>
         <Routes>
-          <Navigate path="/" to="/register" />
+          <Navigate path="/" to="/login" />
           <Route path="/landing" element={<Landing />} />
           <Route path="/channel/:id" element={<Videos />} />
           <Route path="/video/watch" element={<SingleVideo />} />
@@ -20,7 +20,7 @@ const App = () => {
           <Route path="/playlists" element={<Playlists />} />
           <Route path="/playlist/:id" element={<SinglePlaylist />} />
           <Route path="/register" element={<Register />} />
-          {/* <Route path="/login" element={ } /> */}
+          <Route path="/login" element={<Login />} />
         </Routes>
       </Router>
       {/* <Footer /> */}
