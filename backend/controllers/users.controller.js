@@ -60,7 +60,7 @@ const generatedOTP = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Invalid Email' })
         }
         const OTP = Number(generateOTP());
-        const data = await OTPMail(OTP, email);
+        await OTPMail(OTP, email);
         const updateUser = {
             otp: OTP
         }
@@ -80,7 +80,6 @@ const login = async (req, res) => {
     try {
         const { email, otp } = req.body;
         let verifyUser = await User.findOne({ email })
-
         if (!verifyUser) {
             return res.status(400).json({ success: false, message: 'Invalid Email' })
         }
