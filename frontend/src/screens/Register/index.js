@@ -1,5 +1,6 @@
 import React from 'react';
-import styles from './register.module.css'
+import styles from './register.module.css';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
     return (
@@ -31,6 +32,7 @@ const Register = () => {
                             />
                         </div>
                         <button className={`btn btn-primary ${styles.login_button}`}>Register</button>
+                        <p className={styles.check_status}> Already have Account ? <Link to='/login' className={styles.text_white}>LOGIN</Link> </p>
                     </form>
                 </div>
 
