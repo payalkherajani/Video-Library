@@ -1,7 +1,6 @@
 import express from 'express'
-import controllers from '../controllers/channels.controller.js';
-const router = express.router()
-const { addNewChannel, getAllChannel } = controllers
+import { addNewChannel, getAllChannel } from '../controllers/channels.controller.js';
+const router = express.Router()
 
 router.post('/', addNewChannel);
 router.get('/', getAllChannel);

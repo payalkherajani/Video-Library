@@ -16,8 +16,9 @@ const addNewChannel = async (req, res) => {
         })
 
         await addChannel.save()
-        res.status(200).send(addNewChannel)
+        res.status(200).send(addChannel)
     } catch (err) {
+        console.log(err)
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }
