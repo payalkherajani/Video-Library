@@ -15,7 +15,9 @@ const initialState = {
     singleVideo: {},
     history: [],
     keyword: '',
-    user: {}
+    user: {},
+    channels: [],
+    activechannel: ''
 }
 
 export const Provider = ({ children }) => {
