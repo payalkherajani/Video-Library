@@ -60,6 +60,8 @@ const Navbar = ({ setOpen, landing }) => {
                                 <i className="fas fa-list"></i>
                             </div>
                         </Link>
+
+
                     </ul>
 
                 </div>
