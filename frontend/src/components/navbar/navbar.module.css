@@ -23,6 +23,7 @@
 
 .end{
     margin-right: 5px;
+    display: none;
 }
 .custom__navbar{
     display: flex;
@@ -44,5 +45,9 @@
     .start , .center ,  .end{
         font-size: 1.5rem;
         gap: 10px;
+    }
+    .end{
+        display: block;
+        margin-right: 1rem;
     }
 }

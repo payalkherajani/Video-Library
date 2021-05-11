@@ -2,12 +2,14 @@ import React from 'react';
 import styles from './navbar.module.css';
 import Searchbar from '../searchbar';
 import { Link } from 'react-router-dom';
-import avatar from '../../assets/avatar1.jpg'
+import avatar from '../../assets/avatar1.jpg';
+import useCustomContext from '../../customHooks/Hook';
 
 const Navbar = ({ setOpen, landing }) => {
+    const { state, dispatch } = useCustomContext()
+    const { user } = state
 
     return (
-
         landing === true ?
             (
                 <div className={styles.navbar_wrapper}>
@@ -21,7 +23,7 @@ const Navbar = ({ setOpen, landing }) => {
                     </div>
 
                     <div className={styles.end}>
-                        <img src={avatar} className="avatar avatar-sm" />
+                        <img src={user.avatar} className="avatar avatar-md" />
                     </div>
                 </div>
             ) :

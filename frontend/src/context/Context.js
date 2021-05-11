@@ -15,6 +15,7 @@ const initialState = {
     singleVideo: {},
     history: [],
     keyword: '',
+    user: {}
 }
 
 export const Provider = ({ children }) => {
