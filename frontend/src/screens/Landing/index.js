@@ -47,7 +47,6 @@ const Landing = () => {
     return (
         <div className={styles.landing_container}>
             <h1 className={styles.landing__heading}>Welcome {user.name}</h1>
-
             <div className={styles.landing__grid}>
 
                 <div className={styles.landing__svg}>
@@ -60,7 +59,6 @@ const Landing = () => {
                         height='100%'
                         controls={true}
                     />
-
                 </div>
 
                 <div className={styles.landing__cards}>

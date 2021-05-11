@@ -1,5 +1,6 @@
 import React from 'react'
-import styles from './footer.module.css'
+import styles from './footer.module.css';
+import { Link } from 'react-router-dom';
 
 
 const Footer = () => {
@@ -13,27 +14,27 @@ const Footer = () => {
             <div>
                 <ul className={styles.unorderedlist}>
                     <li className={styles.list_item}>
-                        <a href="/">
-                            <i class="fab fa-twitter" style={{ color: "white", fontSize: "2rem" }}></i>
-                        </a>
+                        <Link to="/">
+                            <i className="fab fa-twitter" style={{ color: "white", fontSize: "2rem" }}></i>
+                        </Link>
                     </li>
 
                     <li className={styles.list_item}>
-                        <a href="/">
-                            <i class="fab fa-linkedin-in" style={{ color: "white", fontSize: "2rem" }}></i>
-                        </a>
+                        <Link to="/">
+                            <i className="fab fa-linkedin-in" style={{ color: "white", fontSize: "2rem" }}></i>
+                        </Link>
                     </li>
 
                     <li className={styles.list_item}>
-                        <a href="/">
-                            <i class="fab fa-github" style={{ color: "white", fontSize: "2rem" }}></i>
-                        </a>
+                        <Link to="/">
+                            <i className="fab fa-github" style={{ color: "white", fontSize: "2rem" }}></i>
+                        </Link>
                     </li>
 
                     <li className={styles.list_item}>
-                        <a href="/">
-                            <i class="fab fa-instagram" style={{ color: "white", fontSize: "2rem" }}></i>
-                        </a>
+                        <Link to="/">
+                            <i className="fab fa-instagram" style={{ color: "white", fontSize: "2rem" }}></i>
+                        </Link>
                     </li>
                 </ul>
             </div>
