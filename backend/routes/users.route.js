@@ -1,10 +1,13 @@
 import express from 'express'
-const router = express.Router();
-import { register, login, generatedOTP } from '../controllers/users.controller.js'
+import { register, login, generatedOTP, getUserByID } from '../controllers/users.controller.js'
+import { auth } from '../middleware/auth.js'
 
+
+const router = express.Router();
 router.post('/register', register);
 router.post('/generateotp', generatedOTP);
-router.post('/login', login)
+router.post('/login', login);
+router.get('/', auth, getUserByID)
 
 
 export default router;

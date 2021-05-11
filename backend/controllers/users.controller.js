@@ -99,4 +99,20 @@ const login = async (req, res) => {
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }
-export { register, generatedOTP, login };
+
+
+//@route   GET api/users
+//@desc    Get User Details
+//@access  Private
+
+const getUserByID = async (req, res) => {
+    try {
+        const id = req.user;
+        const user = await User.findOne({ _id: id }).select(['-createdAt', '-updatedAt', '-__v'])
+        res.status(200).send(user)
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server Error' })
+    }
+}
+
+export { register, generatedOTP, login, getUserByID };
