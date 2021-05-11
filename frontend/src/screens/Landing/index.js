@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './landing.module.css';
-import { CategoryCard } from '../../components';
+import { CategoryCard, Footer } from '../../components';
 import windowImage from '../../assets/window.svg'
 import ReactPlayer from 'react-player'
 
@@ -37,8 +37,9 @@ const Landing = () => {
 
                 </div>
             </div>
-
+            <Footer />
         </div>
+
     )
 }
 

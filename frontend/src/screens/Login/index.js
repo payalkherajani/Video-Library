@@ -39,6 +39,9 @@ const Login = () => {
             const error = err.response.data.message;
             toast.error(`${error}`);
         }
+        finally {
+            setShow(false)
+        }
     }
 
     const handleFormData = (e) => {

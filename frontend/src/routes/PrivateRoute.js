@@ -2,17 +2,11 @@ import React from 'react';
 import { Route, Navigate } from 'react-router-dom';
 
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ path, ...props }) => {
     return (
-        <Route
-            {...rest}
-
-            render={
-                props => (localStorage.getItem('token')) ? <Component {...props} /> :
-                    <Navigate to='/login' />
-            }
-
-        />
+        localStorage.getItem('token') ? (<Route {...props} path={path} />) : (
+            <Navigate to="/login" />
+        )
     )
 }
 
