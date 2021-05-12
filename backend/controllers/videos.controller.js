@@ -1,4 +1,3 @@
-import Videos from '../models/videos.model.js';
 import dotenv from 'dotenv';
 import axios from 'axios'
 dotenv.config()
@@ -12,7 +11,7 @@ const getVideosofChannel = async (req, res) => {
 
         const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${uploadId}&key=${process.env.YOUTUBE_API}&fields=items(id,snippet(channelId,title,description,publishedAt,resourceId.videoId))&part=snippet&maxResults=10`);
 
-        res.status(200).send(data)
+        res.status(200).send(data.items)
     } catch (err) {
         res.status(500).json({ success: false, message: 'Server Error' })
     }
@@ -27,10 +26,22 @@ const getSingleVideo = async (req, res) => {
         res.status(200).send(video)
 
     } catch (err) {
+        res.status(500).json({ success: false, message: 'Server Error' })
+    }
+}
+
+const getBanner = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const response = await axios.get(`https://www.googleapis.com/youtube/v3/channels?part=brandingSettings&id=${id}&key=${process.env.YOUTUBE_API}`);
+        const { data: { items } } = response;
+        const bannerimage = items[0].brandingSettings.image.bannerExternalUrl;
+        res.status(200).send(bannerimage)
+    } catch (err) {
         console.log(err)
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }
 
 
-export { getVideosofChannel, getSingleVideo }
+export { getVideosofChannel, getSingleVideo, getBanner }

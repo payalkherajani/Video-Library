@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import useCustomContext from '../../customHooks/Hook';
 import { SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, ADD_WATCH_LATER, LIKE_VIDEO } from '../../constants/type';
 import axios from 'axios';
-import { Banner, Modal } from '../../components';
+import { Banner, Modal, Footer } from '../../components';
 import ReactPlayer from 'react-player';
 import styles from './single_video.module.css';
 import dateformat from 'dateformat';
@@ -21,12 +21,11 @@ const SingleVideo = () => {
     const getVideoDetails = async () => {
         try {
             dispatch({ type: SINGLE_VIDEO_REQUEST })
-            const response = await axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2Cstatistics&id=${videoId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`);
-
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/videos/video/${videoId}`, { headers: { 'x-auth-token': localStorage.getItem('token') } });
+            console.log({ response })
             if (response.status === 200) {
-                const { data: { items } } = response;
-
-                dispatch({ type: SINGLE_VIDEO_SUCCESS, payload: items[0] })
+                const { data } = response;
+                dispatch({ type: SINGLE_VIDEO_SUCCESS, payload: data })
             }
         } catch (err) {
             dispatch({ type: SINGLE_VIDEO_FAILURE, payload: 'Something went wrong' })
@@ -110,7 +109,7 @@ const SingleVideo = () => {
                         }
                     </div>
                 </div>
-
+                <Footer />
             </div>
         )
 
