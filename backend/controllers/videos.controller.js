@@ -2,6 +2,10 @@ import dotenv from 'dotenv';
 import axios from 'axios'
 dotenv.config()
 
+//@route   GET api/videos/:id
+//@desc    GET 10 videos of a channel
+//@access  Private
+
 const getVideosofChannel = async (req, res) => {
     try {
         const { id } = req.params;
@@ -17,6 +21,10 @@ const getVideosofChannel = async (req, res) => {
     }
 }
 
+//@route   GET api/videos/video/:id
+//@desc    GET Single Video
+//@access  Private
+
 const getSingleVideo = async (req, res) => {
     try {
         const { videoId } = req.params
@@ -30,6 +38,11 @@ const getSingleVideo = async (req, res) => {
     }
 }
 
+
+//@route   GET api/videos/banner/:id
+//@desc    GET Channel Banner
+//@access  Private
+
 const getBanner = async (req, res) => {
     try {
         const { id } = req.params;
@@ -38,7 +51,6 @@ const getBanner = async (req, res) => {
         const bannerimage = items[0].brandingSettings.image.bannerExternalUrl;
         res.status(200).send(bannerimage)
     } catch (err) {
-        console.log(err)
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }

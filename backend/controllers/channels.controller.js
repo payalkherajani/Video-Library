@@ -1,5 +1,9 @@
 import Channel from '../models/channels.model.js'
 
+//@route   POST api/channels
+//@desc    Add New Channel
+//@access  Private
+
 const addNewChannel = async (req, res) => {
     try {
         const { channelname, channelId, image } = req.body;
@@ -18,10 +22,13 @@ const addNewChannel = async (req, res) => {
         await addChannel.save()
         res.status(200).send(addChannel)
     } catch (err) {
-        console.log(err)
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }
+
+//@route   GET api/channels
+//@desc    Get All Channels
+//@access  Private
 
 const getAllChannel = async (req, res) => {
     try {
