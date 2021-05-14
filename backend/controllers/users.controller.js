@@ -1,4 +1,5 @@
 import User from '../models/users.model.js';
+import likedVideos from '../models/likedvideos.model.js'
 import { mail } from '../utils/mail.js';
 import { generateOTP } from '../utils/generateOTP.js';
 import { OTPMail } from '../utils/sendOTPMail.js';
@@ -6,6 +7,7 @@ import { generateJWToken } from '../utils/generateToken.js';
 import gravatar from 'gravatar';
 import normalize from 'normalize-url';
 import _ from 'lodash';
+import WatchLater from '../models/watchlater.model.js';
 
 //@route   POST api/users/register
 //@desc    Register new User
@@ -41,6 +43,19 @@ const register = async (req, res) => {
 
         await user.save()
         await mail(name, email)
+
+        const watchLater = new WatchLater({
+            user: user._id,
+            watchlater: []
+        })
+
+        const LikedVideos = new likedVideos({
+            user: user._id,
+            likedvideos: []
+        })
+
+        await watchLater.save()
+        await LikedVideos.save()
         res.status(200).json({ success: true, message: 'Registration Successfull ' })
 
     } catch (err) {
