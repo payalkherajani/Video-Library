@@ -54,7 +54,7 @@ const Drawer = () => {
 
                 <Link to={{ pathname: '/login' }} className="color-white">
                     <div className={styles.list__item} onClick={() => logout()}>
-                        <i class="fas fa-sign-out-alt"></i>
+                        <i className="fas fa-sign-out-alt"></i>
                         <li>Logout</li>
                     </div>
                 </Link>

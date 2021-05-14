@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import useCustomContext from '../../customHooks/Hook';
-import { VIDEOS_LIST_FAILURE, GET_VIDEOS_LIST_REQUEST, VIDEOS_LIST_SUCCESS } from '../../constants/type';
+import { VIDEOS_LIST_FAILURE, GET_VIDEOS_LIST_REQUEST, VIDEOS_LIST_SUCCESS, GET_ALL_VIDEOS_OF_WATCHLATER } from '../../constants/type';
 import axios from 'axios';
 import { Navbar, Main, Drawer, Footer } from '../../components';
 import styles from './videos.module.css';
+import { toast } from 'react-toastify';
 
 const Videos = () => {
     const { id } = useParams();
@@ -12,7 +13,6 @@ const Videos = () => {
     const [open, setOpen] = useState(false);
 
     const getVideosofChannel = async (id) => {
-
         try {
             dispatch({ type: GET_VIDEOS_LIST_REQUEST })
             const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/videos/${id}`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
@@ -24,6 +24,20 @@ const Videos = () => {
 
     useEffect(() => {
         getVideosofChannel(id)
+    }, [])
+
+    const getWatchLaterVideos = async () => {
+        try {
+            const { data: { watchlater } } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/watchlater`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: GET_ALL_VIDEOS_OF_WATCHLATER, payload: watchlater })
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
+    }
+
+    useEffect(() => {
+        getWatchLaterVideos()
     }, [])
 
     return (

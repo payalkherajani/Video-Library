@@ -55,7 +55,7 @@ const removeVideo = async (req, res) => {
         const id = req.user;
 
         const allVideos = await WatchLater.findOne({ user: id })
-        const filterVideos = allVideos.watchlater.filter((v) => v === videoID)
+        const filterVideos = allVideos.watchlater.filter((v) => v !== videoID)
         const updatedDetails = {
             user: id,
             watchlater: filterVideos

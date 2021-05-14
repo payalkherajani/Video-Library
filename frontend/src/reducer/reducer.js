@@ -1,4 +1,4 @@
-import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER, SEARCH_KEYWORD, CLEAR_SEARCH, LIKE_VIDEO, REMOVE_LIKE_VIDEO, ADD_NEW_PLAYLIST, DELETE_PLAYLIST, TOGGLE_PLAYLIST_ITEM, REMOVE_ITEM_FROM_PLAYLIST, SET_TOKEN_IN_LOCALSTORAGE, GET_LOGGED_IN_USER, REMOVE_TOKEN_FROM_LOCALSTORAGE, GET_ALL_CHANNELS } from '../constants/type';
+import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER, SEARCH_KEYWORD, CLEAR_SEARCH, LIKE_VIDEO, REMOVE_LIKE_VIDEO, ADD_NEW_PLAYLIST, DELETE_PLAYLIST, TOGGLE_PLAYLIST_ITEM, REMOVE_ITEM_FROM_PLAYLIST, SET_TOKEN_IN_LOCALSTORAGE, GET_LOGGED_IN_USER, REMOVE_TOKEN_FROM_LOCALSTORAGE, GET_ALL_CHANNELS, GET_ALL_VIDEOS_OF_WATCHLATER } from '../constants/type';
 
 
 export const reducer = (state, action) => {
@@ -39,18 +39,13 @@ export const reducer = (state, action) => {
             return { ...state, history: [] }
 
         case ADD_WATCH_LATER:
-            const findWatchLaterID = !![...state.watchlater].find((video) => video === payload);
-            if (findWatchLaterID) {
-                return state
-            }
-            return { ...state, watchlater: [...state.watchlater, payload] }
+            return { ...state, watchlater: payload }
 
         case REMOVE_WATCH_LATER:
-            const filterWatchLater = state.watchlater.filter((video) => video !== payload);
-            return { ...state, watchlater: filterWatchLater }
+            return { ...state, watchlater: payload }
 
         case CLEAR_WATCH_LATER:
-            return { ...state, watchlater: [] }
+            return { ...state, watchlater: payload }
 
         case SEARCH_KEYWORD:
             const toSearch = payload.toLowerCase();
@@ -129,6 +124,9 @@ export const reducer = (state, action) => {
 
         case GET_ALL_CHANNELS:
             return { ...state, channels: payload }
+
+        case GET_ALL_VIDEOS_OF_WATCHLATER:
+            return { ...state, watchlater: payload }
 
 
         default:
