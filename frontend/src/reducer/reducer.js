@@ -1,4 +1,4 @@
-import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER, SEARCH_KEYWORD, CLEAR_SEARCH, LIKE_VIDEO, REMOVE_LIKE_VIDEO, ADD_NEW_PLAYLIST, DELETE_PLAYLIST, TOGGLE_PLAYLIST_ITEM, REMOVE_ITEM_FROM_PLAYLIST, SET_TOKEN_IN_LOCALSTORAGE, GET_LOGGED_IN_USER, REMOVE_TOKEN_FROM_LOCALSTORAGE, GET_ALL_CHANNELS, GET_ALL_VIDEOS_OF_WATCHLATER } from '../constants/type';
+import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER, SEARCH_KEYWORD, CLEAR_SEARCH, LIKE_VIDEO, REMOVE_LIKE_VIDEO, ADD_NEW_PLAYLIST, DELETE_PLAYLIST, TOGGLE_PLAYLIST_ITEM, REMOVE_ITEM_FROM_PLAYLIST, SET_TOKEN_IN_LOCALSTORAGE, GET_LOGGED_IN_USER, REMOVE_TOKEN_FROM_LOCALSTORAGE, GET_ALL_CHANNELS, GET_ALL_VIDEOS_OF_WATCHLATER, GET_ALL_LIKEDVIDEOS } from '../constants/type';
 
 
 export const reducer = (state, action) => {
@@ -55,15 +55,10 @@ export const reducer = (state, action) => {
             return { ...state, keyword: '' }
 
         case LIKE_VIDEO:
-            const likedVideosID = !![...state.liked].find((video) => video === payload)
-            if (likedVideosID) {
-                return state
-            }
-            return { ...state, liked: [...state.liked, payload] }
+            return { ...state, liked: payload }
 
         case REMOVE_LIKE_VIDEO:
-            const filterlikedvideos = state.liked.filter((video) => video !== payload)
-            return { ...state, liked: filterlikedvideos }
+            return { ...state, liked: payload }
 
         case TOGGLE_PLAYLIST_ITEM:
             const { playlistID, videoId } = payload;
@@ -128,6 +123,8 @@ export const reducer = (state, action) => {
         case GET_ALL_VIDEOS_OF_WATCHLATER:
             return { ...state, watchlater: payload }
 
+        case GET_ALL_LIKEDVIDEOS:
+            return { ...state, liked: payload }
 
         default:
             return state

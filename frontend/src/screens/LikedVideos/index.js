@@ -4,13 +4,23 @@ import useCustomContext from '../../customHooks/Hook';
 import ReactPlayer from 'react-player';
 import styles from './liked.module.css';
 import { REMOVE_LIKE_VIDEO } from '../../constants/type';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const LikedVideos = () => {
     const { state: { liked }, dispatch } = useCustomContext();
 
-    const deleteFromLiked = (id) => {
-        dispatch({ type: REMOVE_LIKE_VIDEO, payload: id })
+    const deleteFromLiked = async (id) => {
+        try {
+            const { data: { likedvideos } } = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/likedvideos/${id}`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: REMOVE_LIKE_VIDEO, payload: likedvideos })
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
     }
+
+    console.log({ liked })
 
     return (
         <>

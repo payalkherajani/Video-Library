@@ -7,6 +7,8 @@ import { Banner, Modal, Footer } from '../../components';
 import ReactPlayer from 'react-player';
 import styles from './single_video.module.css';
 import dateformat from 'dateformat';
+import { toast } from 'react-toastify';
+
 
 const SingleVideo = () => {
 
@@ -15,14 +17,12 @@ const SingleVideo = () => {
     const videoId = query.get('v');
     const { state, dispatch } = useCustomContext();
     const { singleVideo } = state;
-    const [show, setShow] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
     const getVideoDetails = async () => {
         try {
             dispatch({ type: SINGLE_VIDEO_REQUEST })
             const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/videos/video/${videoId}`, { headers: { 'x-auth-token': localStorage.getItem('token') } });
-            console.log({ response })
             if (response.status === 200) {
                 const { data } = response;
                 dispatch({ type: SINGLE_VIDEO_SUCCESS, payload: data })
@@ -37,11 +37,34 @@ const SingleVideo = () => {
         getVideoDetails()
     }, [])
 
-    const addtoLikedVideos = (id) => {
-        dispatch({ type: LIKE_VIDEO, payload: id })
-        setShow((show) => !show)
+    const addtoLikedVideos = async (id) => {
+        try {
+            const { data: { likedvideos } } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/likedvideos`, { 'videoID': id }, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: LIKE_VIDEO, payload: likedvideos })
+            toast.success("Added to Liked Videos")
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
+    }
+    const addToWatchLater = async (id) => {
+        try {
+            const { data: { watchlater } } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/watchlater`, { 'videoID': id }, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: ADD_WATCH_LATER, payload: watchlater })
+            toast.success("Added to Watchater")
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
     }
 
+    const checkWL = (id) => {
+        return state.watchlater.some((v) => v === id)
+    }
+
+    const check = (id) => {
+        return state.liked.some((l) => l === id)
+    }
 
     return (
         Object.keys(singleVideo).length === 0 ? null : (
@@ -67,7 +90,7 @@ const SingleVideo = () => {
 
                         <button className="btn">
                             {
-                                show === true ? (
+                                check(videoId) ? (
                                     <>
                                         <i className="fas fa-thumbs-up color-blue"></i>
                                         {" "} {singleVideo.statistics.likeCount = Number(singleVideo.statistics.likeCount)}
@@ -83,13 +106,17 @@ const SingleVideo = () => {
 
                         </button>
 
-                        {/* <button className="btn">
-                            <i className="fas fa-thumbs-down"></i>{" "}{singleVideo.statistics.dislikeCount}
-                        </button> */}
-
-                        <button className="btn">
-                            <i className="fas fa-clock" onClick={() => dispatch({ type: ADD_WATCH_LATER, payload: videoId })}></i>
-                        </button>
+                        {
+                            checkWL(videoId) ? (
+                                <button className="btn">
+                                    <i className="fas fa-check"></i>
+                                </button>
+                            ) : (
+                                <button className="btn">
+                                    <i className="fas fa-clock" onClick={() => addToWatchLater(videoId)}></i>
+                                </button>
+                            )
+                        }
 
                         <button className="btn">
                             <i className="fas fa-list-ul" onClick={() => setShowModal((showModal) => !showModal)}></i>

@@ -6,7 +6,7 @@ import likedVideos from '../models/likedvideos.model.js'
 const getAllLikedVideos = async (req, res) => {
     try {
         const id = req.user
-        const allvideos = await likedVideos.find({ user: id })
+        const allvideos = await likedVideos.findOne({ user: id })
         res.status(200).send(allvideos)
     } catch (err) {
         res.status(500).json({ success: false, message: 'Server Error' })

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import useCustomContext from '../../customHooks/Hook';
-import { VIDEOS_LIST_FAILURE, GET_VIDEOS_LIST_REQUEST, VIDEOS_LIST_SUCCESS, GET_ALL_VIDEOS_OF_WATCHLATER } from '../../constants/type';
+import { VIDEOS_LIST_FAILURE, GET_VIDEOS_LIST_REQUEST, VIDEOS_LIST_SUCCESS, GET_ALL_VIDEOS_OF_WATCHLATER, GET_ALL_LIKEDVIDEOS } from '../../constants/type';
 import axios from 'axios';
 import { Navbar, Main, Drawer, Footer } from '../../components';
 import styles from './videos.module.css';
@@ -38,6 +38,21 @@ const Videos = () => {
 
     useEffect(() => {
         getWatchLaterVideos()
+    }, [])
+
+
+    const getLikedVideos = async () => {
+        try {
+            const { data: { likedvideos } } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/likedvideos`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: GET_ALL_LIKEDVIDEOS, payload: likedvideos })
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
+    }
+
+    useEffect(() => {
+        getLikedVideos()
     }, [])
 
     return (
