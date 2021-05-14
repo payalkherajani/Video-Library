@@ -2,15 +2,14 @@ import WatchLater from '../models/watchlater.model.js'
 import _ from 'lodash';
 
 //@route   GET api/watchlater
-//@desc    Register new User
-//@access  Public
+//@desc    Get All WL Videos
+//@access  Private
 const getAllVideosinWL = async (req, res) => {
     try {
         const id = req.user
         const watchLaterVideos = await WatchLater.findOne({ user: id })
         res.status(200).send(watchLaterVideos)
     } catch (err) {
-        console.log(err);
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }
