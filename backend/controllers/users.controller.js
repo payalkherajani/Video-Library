@@ -1,5 +1,7 @@
 import User from '../models/users.model.js';
 import likedVideos from '../models/likedvideos.model.js'
+import historyVideos from '../models/history.model.js'
+import Playlist from '../models/playlists.model.js'
 import { mail } from '../utils/mail.js';
 import { generateOTP } from '../utils/generateOTP.js';
 import { OTPMail } from '../utils/sendOTPMail.js';
@@ -54,12 +56,28 @@ const register = async (req, res) => {
             likedvideos: []
         })
 
+        const HistoryVideos = new historyVideos({
+            user: user._id,
+            historyvideos: []
+        })
+
+        const playlist = new Playlist({
+            user: user._id,
+            playlists: [
+                {
+                    name: 'fav',
+                    videos: []
+                }
+            ]
+        })
+
         await watchLater.save()
         await LikedVideos.save()
+        await HistoryVideos.save()
+        await playlist.save()
         res.status(200).json({ success: true, message: 'Registration Successfull ' })
 
     } catch (err) {
-        console.log(err);
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }
