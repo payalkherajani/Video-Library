@@ -4,7 +4,6 @@ import _ from 'lodash'
 //@route   GET api/playlist
 //@desc    Get All Playlists
 //@access  Private
-
 const getAllPlaylists = async (req, res) => {
     try {
         const id = req.user
@@ -15,6 +14,10 @@ const getAllPlaylists = async (req, res) => {
     }
 }
 
+
+//@route   PUT api/playlist
+//@desc    Toggle Playlists
+//@access  Private
 const togglePlaylist = async (req, res) => {
     try {
         const id = req.user
@@ -47,6 +50,9 @@ const togglePlaylist = async (req, res) => {
     }
 }
 
+//@route   POST api/playlist
+//@desc    Add New Playlist
+//@access  Private
 const addNewPlaylist = async (req, res) => {
     try {
         const id = req.user
@@ -70,6 +76,9 @@ const addNewPlaylist = async (req, res) => {
 }
 
 
+//@route   DELETE api/playlist
+//@desc    Delete Playlist
+//@access  Private
 const deletePlaylist = async (req, res) => {
     try {
         const id = req.user;
