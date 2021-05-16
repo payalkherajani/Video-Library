@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import useCustomContext from '../../customHooks/Hook';
-import { VIDEOS_LIST_FAILURE, GET_VIDEOS_LIST_REQUEST, VIDEOS_LIST_SUCCESS, GET_ALL_VIDEOS_OF_WATCHLATER, GET_ALL_LIKEDVIDEOS } from '../../constants/type';
+import { VIDEOS_LIST_FAILURE, GET_VIDEOS_LIST_REQUEST, VIDEOS_LIST_SUCCESS, GET_ALL_VIDEOS_OF_WATCHLATER, GET_ALL_LIKEDVIDEOS, GET_ALL_HISTORYVIDEOS } from '../../constants/type';
 import axios from 'axios';
 import { Navbar, Main, Drawer, Footer } from '../../components';
 import styles from './videos.module.css';
@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 const Videos = () => {
     const { id } = useParams();
-    const { dispatch } = useCustomContext();
+    const { state, dispatch } = useCustomContext();
     const [open, setOpen] = useState(false);
 
     const getVideosofChannel = async (id) => {
@@ -54,6 +54,22 @@ const Videos = () => {
     useEffect(() => {
         getLikedVideos()
     }, [])
+
+
+    const getAllHistoryVideos = async () => {
+        try {
+            const { data: { historyvideos } } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/history`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: GET_ALL_HISTORYVIDEOS, payload: historyvideos })
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
+    }
+    useEffect(() => {
+        getAllHistoryVideos()
+    }, [])
+
+    console.log({ state }, "main")
 
     return (
         <>

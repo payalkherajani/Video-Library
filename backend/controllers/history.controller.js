@@ -24,7 +24,7 @@ const addVideoToHistory = async (req, res) => {
         const { videoID } = req.body;
         const isPresent = videos.historyvideos.some((v) => v === videoID)
         if (isPresent) {
-            return res.status(400).json({ success: false, message: 'Video Already in History' })
+            return res.status(200).json({ success: false, message: 'Video Already in History' })
         }
         const updatedVideos = [...videos.historyvideos, videoID]
         const updatedDetails = {

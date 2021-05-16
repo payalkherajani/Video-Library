@@ -11,7 +11,6 @@ import axios from 'axios'
 const Main = () => {
     const { state, dispatch } = useCustomContext();
 
-
     const addToWatchLater = async (id) => {
         try {
             const { data: { watchlater } } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/watchlater`, { 'videoID': id }, { headers: { 'x-auth-token': localStorage.getItem('token') } })
@@ -34,8 +33,17 @@ const Main = () => {
         }
         return sortedVideos;
     }
-    const filteredVideos = getData(state, state.videos)
 
+    const addtoHistory = async (videoID) => {
+        try {
+            const { data: { historyvideos } } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/history`, { 'videoID': videoID }, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: ADD_TO_HISTORY, payload: historyvideos })
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
+    }
+    const filteredVideos = getData(state, state.videos)
     return (
         <div className={styles.main_container}>
             {
@@ -49,7 +57,7 @@ const Main = () => {
                                     width='100%'
                                     height='100%'
                                     controls={true}
-                                    onStart={() => dispatch({ type: ADD_TO_HISTORY, payload: resourceId.videoId })}
+                                    onStart={() => addtoHistory(resourceId.videoId)}
                                 />
                             </div>
                             <p className={`${styles.main__video__content} lead`}>{title}</p>

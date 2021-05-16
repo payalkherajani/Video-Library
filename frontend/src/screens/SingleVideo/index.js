@@ -58,6 +58,16 @@ const SingleVideo = () => {
         }
     }
 
+    const addtoHistory = async (videoID) => {
+        try {
+            const { data: { historyvideos } } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/history`, { 'videoID': videoID }, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: ADD_TO_HISTORY, payload: historyvideos })
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
+    }
+
     const checkWL = (id) => {
         return state.watchlater.some((v) => v === id)
     }
@@ -82,7 +92,7 @@ const SingleVideo = () => {
                             width='100%'
                             height='100%'
                             controls={true}
-                            onStart={() => dispatch({ type: ADD_TO_HISTORY, payload: videoId })}
+                            onStart={() => addtoHistory(videoId)}
                         />
                     </div>
 
