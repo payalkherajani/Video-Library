@@ -12,8 +12,16 @@ const SinglePlaylist = () => {
     const { state: { playlist }, dispatch } = useCustomContext();
     const { id } = useParams();
 
-    const deleteFromPlaylist = (playlistId, id) => {
-        dispatch({ type: REMOVE_ITEM_FROM_PLAYLIST, payload: { playlistId, id } })
+    const deleteFromPlaylist = async (playlistId, videoID) => {
+        try {
+            console.log(playlistId, videoID)
+            const { data: { playlists } } = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/playlist/${playlistId}/${videoID}`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            console.log({ playlists })
+            dispatch({ type: REMOVE_ITEM_FROM_PLAYLIST, payload: playlists })
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
     }
 
     const deletePlaylist = async (id) => {
@@ -27,6 +35,7 @@ const SinglePlaylist = () => {
     }
 
     const findVideosofPlaylist = [...playlist].filter((one) => one._id === id);
+    console.log({ findVideosofPlaylist })
 
     return (
         <>
@@ -37,13 +46,13 @@ const SinglePlaylist = () => {
             <div className={styles.singleplaylist__container}>
                 {
                     findVideosofPlaylist[0].videos.length > 0 ? (
-                        findVideosofPlaylist[0].videos.map((id) => (
+                        findVideosofPlaylist[0].videos.map((videoid) => (
 
-                            <div key={id} className={styles.singleplaylist__video}>
+                            <div key={videoid} className={styles.singleplaylist__video}>
 
                                 <div style={{ height: '300px' }}>
                                     <ReactPlayer
-                                        url={`https://www.youtube.com/watch?v=${id}`}
+                                        url={`https://www.youtube.com/watch?v=${videoid}`}
                                         width='100%'
                                         height='100%'
                                         controls={true}
@@ -51,7 +60,7 @@ const SinglePlaylist = () => {
                                 </div>
 
                                 <div className={styles.singleplaylist__video_delete}>
-                                    <button className="btn btn-danger color-red" onClick={() => deleteFromPlaylist(findVideosofPlaylist[0].id, id)}><i className="fas fa-trash"></i></button>
+                                    <button className="btn btn-danger color-red" onClick={() => deleteFromPlaylist(findVideosofPlaylist[0]._id, videoid)}><i className="fas fa-trash"></i></button>
                                 </div>
 
                             </div>

@@ -65,23 +65,7 @@ export const reducer = (state, action) => {
             return { ...state, playlist: payload }
 
         case REMOVE_ITEM_FROM_PLAYLIST:
-            const { playlistId, id } = payload;
-
-            const removeitemfromplaylist = [...state.playlist].map((one) => {
-                if (one.id === playlistId) {
-                    const videoPresent = !!one.videos.find((video) => video === id);
-                    if (videoPresent) {
-                        const filtervideo = one.videos.filter((video) => video !== id)
-                        return { ...one, videos: filtervideo }
-                    }
-                    else {
-                        return one
-                    }
-                }
-                return one
-            })
-
-            return { ...state, playlist: removeitemfromplaylist }
+            return { ...state, playlist: payload }
 
         case SET_TOKEN_IN_LOCALSTORAGE:
             localStorage.setItem('token', payload);
