@@ -56,24 +56,7 @@ export const reducer = (state, action) => {
             return { ...state, liked: payload }
 
         case TOGGLE_PLAYLIST_ITEM:
-            const { playlistID, videoId } = payload;
-
-            const iteminPlaylist = [...state.playlist].map((one) => {
-                if (one.id === playlistID) {
-                    const videoPresent = !!one.videos.find((video) => video === videoId);
-                    if (videoPresent) {
-                        const filtervideo = one.videos.filter((video) => video !== videoId)
-                        return { ...one, videos: filtervideo }
-                    }
-                    else {
-                        const newOne = { ...one, videos: [...one.videos, videoId] }
-                        return newOne
-                    }
-                }
-                return one
-            })
-
-            return { ...state, playlist: iteminPlaylist }
+            return { ...state, playlist: payload }
 
         case ADD_NEW_PLAYLIST:
             return { ...state, playlist: payload }

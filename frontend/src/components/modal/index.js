@@ -17,10 +17,16 @@ const Modal = ({ setShowModal, videoId }) => {
     })
 
     const { name, videos } = formData;
-    console.log({ formData })
 
-    const handleChange = (e, playlistID, videoId) => {
-        dispatch({ type: TOGGLE_PLAYLIST_ITEM, payload: { playlistID, videoId } })
+    const handleChange = async (e, playlistID, videoId) => {
+        try {
+            const { data: { playlists } } = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/playlist`, { "videoID": videoId, "playlistID": playlistID }, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: TOGGLE_PLAYLIST_ITEM, payload: playlists })
+            toast.success(`Playlist Updated`);
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
     }
 
     const check = (videoId, videos) => {
@@ -47,7 +53,6 @@ const Modal = ({ setShowModal, videoId }) => {
 
     }
 
-    console.log({ state })
     return (
         <div className={styles.modal}>
             <div className="modal">

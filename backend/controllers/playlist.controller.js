@@ -76,7 +76,7 @@ const addNewPlaylist = async (req, res) => {
 }
 
 
-//@route   DELETE api/playlist
+//@route   DELETE api/playlist/:playlistID
 //@desc    Delete Playlist
 //@access  Private
 const deletePlaylist = async (req, res) => {
@@ -94,8 +94,40 @@ const deletePlaylist = async (req, res) => {
         return res.status(400).json({ success: false, message: 'No such Playlist exists' })
 
     } catch (err) {
-        console.log(err)
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }
-export { getAllPlaylists, togglePlaylist, addNewPlaylist, deletePlaylist }
+
+//@route   DELETE api/playlist/:playlistID/:videoID
+//@desc    Delete Playlist
+//@access  Private
+
+const removeVideoFromPlaylist = async (req, res) => {
+    try {
+        const userID = req.user
+        const { playlistID, videoID } = req.params
+        const requiredPlaylist = await Playlist.findOne({ user: userID })
+        const finalVideos = requiredPlaylist.playlists.map((one) => {
+            if (one._id == playlistID) {
+                const findVideo = one.videos.some((v) => v == videoID)
+                if (findVideo) {
+                    const filtervideo = one.videos.filter((video) => video !== videoID)
+                    return { "_id": one._id, "name": one.name, "videos": filtervideo }
+                }
+                return one
+            }
+            return one
+        })
+
+        const updateDetails = {
+            user: userID,
+            playlists: finalVideos
+        }
+        const final = await Playlist.findOneAndUpdate({ _id: requiredPlaylist._id }, { $set: updateDetails }, { new: true })
+        res.status(200).send(final)
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server Error' })
+    }
+}
+
+export { getAllPlaylists, togglePlaylist, addNewPlaylist, deletePlaylist, removeVideoFromPlaylist }
