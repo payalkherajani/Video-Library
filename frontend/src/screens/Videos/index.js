@@ -84,7 +84,7 @@ const Videos = () => {
     useEffect(() => {
         getPlaylists()
     }, [])
-    console.log({ state }, "main")
+
 
     return (
         <>

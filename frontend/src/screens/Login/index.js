@@ -72,10 +72,11 @@ const Login = () => {
                                             name="email"
                                             value={email}
                                             onChange={handleFormData}
+                                            required
                                         />
                                     </div>
                                     <button className={`btn btn-primary ${styles.login_button}`}>Generate OTP</button>
-                                    {/* <p>Note:  You may get OTP in spam folder of your mail</p> */}
+                                    <p style={{ marginTop: '1rem' }}>Note:  You may get OTP in Inbox/spam folder of your registered mail</p>
                                     <p className={styles.check_status}> Don't have Account ? <Link to='/register' className={styles.text_white}>REGISTER</Link> </p>
                                 </form>
                             ) : (
