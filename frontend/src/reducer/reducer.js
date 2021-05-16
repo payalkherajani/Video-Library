@@ -1,4 +1,4 @@
-import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER, SEARCH_KEYWORD, CLEAR_SEARCH, LIKE_VIDEO, REMOVE_LIKE_VIDEO, ADD_NEW_PLAYLIST, DELETE_PLAYLIST, TOGGLE_PLAYLIST_ITEM, REMOVE_ITEM_FROM_PLAYLIST, SET_TOKEN_IN_LOCALSTORAGE, GET_LOGGED_IN_USER, REMOVE_TOKEN_FROM_LOCALSTORAGE, GET_ALL_CHANNELS, GET_ALL_VIDEOS_OF_WATCHLATER, GET_ALL_LIKEDVIDEOS, GET_ALL_HISTORYVIDEOS } from '../constants/type';
+import { VIDEOS_LIST_FAILURE, VIDEOS_LIST_SUCCESS, GET_VIDEOS_LIST_REQUEST, SINGLE_VIDEO_REQUEST, SINGLE_VIDEO_SUCCESS, SINGLE_VIDEO_FAILURE, ADD_TO_HISTORY, REMOVE_FROM_HISTORY, CLEAR_HISTORY, ADD_WATCH_LATER, REMOVE_WATCH_LATER, CLEAR_WATCH_LATER, SEARCH_KEYWORD, CLEAR_SEARCH, LIKE_VIDEO, REMOVE_LIKE_VIDEO, ADD_NEW_PLAYLIST, DELETE_PLAYLIST, TOGGLE_PLAYLIST_ITEM, REMOVE_ITEM_FROM_PLAYLIST, SET_TOKEN_IN_LOCALSTORAGE, GET_LOGGED_IN_USER, REMOVE_TOKEN_FROM_LOCALSTORAGE, GET_ALL_CHANNELS, GET_ALL_VIDEOS_OF_WATCHLATER, GET_ALL_LIKEDVIDEOS, GET_ALL_HISTORYVIDEOS, GET_ALL_PLAYLIST } from '../constants/type';
 
 
 export const reducer = (state, action) => {
@@ -79,8 +79,7 @@ export const reducer = (state, action) => {
             return { ...state, playlist: [...state.playlist, payload] }
 
         case DELETE_PLAYLIST:
-            const filterPlaylist = [...state.playlist].filter((one) => one.id !== payload)
-            return { ...state, playlist: filterPlaylist }
+            return { ...state, playlist: payload }
 
         case REMOVE_ITEM_FROM_PLAYLIST:
             const { playlistId, id } = payload;
@@ -124,6 +123,8 @@ export const reducer = (state, action) => {
         case GET_ALL_HISTORYVIDEOS:
             return { ...state, history: payload }
 
+        case GET_ALL_PLAYLIST:
+            return { ...state, playlist: payload }
         default:
             return state
 

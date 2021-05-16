@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import useCustomContext from '../../customHooks/Hook';
-import { VIDEOS_LIST_FAILURE, GET_VIDEOS_LIST_REQUEST, VIDEOS_LIST_SUCCESS, GET_ALL_VIDEOS_OF_WATCHLATER, GET_ALL_LIKEDVIDEOS, GET_ALL_HISTORYVIDEOS } from '../../constants/type';
+import { VIDEOS_LIST_FAILURE, GET_VIDEOS_LIST_REQUEST, VIDEOS_LIST_SUCCESS, GET_ALL_VIDEOS_OF_WATCHLATER, GET_ALL_LIKEDVIDEOS, GET_ALL_HISTORYVIDEOS, GET_ALL_PLAYLIST } from '../../constants/type';
 import axios from 'axios';
 import { Navbar, Main, Drawer, Footer } from '../../components';
 import styles from './videos.module.css';
@@ -69,6 +69,21 @@ const Videos = () => {
         getAllHistoryVideos()
     }, [])
 
+    const getPlaylists = async () => {
+        try {
+            const { data: { playlists } } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/playlist`, {
+                headers: { 'x-auth-token': localStorage.getItem('token') }
+            })
+            dispatch({ type: GET_ALL_PLAYLIST, payload: playlists })
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
+    }
+
+    useEffect(() => {
+        getPlaylists()
+    }, [])
     console.log({ state }, "main")
 
     return (

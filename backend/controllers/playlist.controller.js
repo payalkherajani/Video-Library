@@ -84,7 +84,7 @@ const deletePlaylist = async (req, res) => {
         const id = req.user;
         let lists = await Playlist.findOne({ user: id })
         const { playlistID } = req.params
-        const present = lists.playlists.some((p) => p._id === playlistID)
+        const present = lists.playlists.some((p) => p._id == playlistID)
         if (present) {
             const filterPlaylist = lists.playlists.filter((p) => p._id != playlistID)
             lists.playlists = filterPlaylist
