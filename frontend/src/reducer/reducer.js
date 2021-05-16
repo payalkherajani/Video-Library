@@ -76,7 +76,7 @@ export const reducer = (state, action) => {
             return { ...state, playlist: iteminPlaylist }
 
         case ADD_NEW_PLAYLIST:
-            return { ...state, playlist: [...state.playlist, payload] }
+            return { ...state, playlist: payload }
 
         case DELETE_PLAYLIST:
             return { ...state, playlist: payload }

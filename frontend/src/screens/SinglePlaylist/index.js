@@ -27,7 +27,6 @@ const SinglePlaylist = () => {
     }
 
     const findVideosofPlaylist = [...playlist].filter((one) => one._id === id);
-    console.log({ findVideosofPlaylist })
 
     return (
         <>

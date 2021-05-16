@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import styles from './modal.module.css';
 import useCustomContext from '../../customHooks/Hook';
 import { ADD_NEW_PLAYLIST, TOGGLE_PLAYLIST_ITEM } from '../../constants/type';
-import { v4 as uuidv4 } from 'uuid'
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
 
 const Modal = ({ setShowModal, videoId }) => {
 
@@ -10,12 +12,12 @@ const Modal = ({ setShowModal, videoId }) => {
     const { playlist } = state;
 
     const [formData, setFormData] = useState({
-        id: uuidv4(),
         name: '',
-        videos: [videoId]
+        videos: videoId
     })
 
-    const { name, videos, id } = formData;
+    const { name, videos } = formData;
+    console.log({ formData })
 
     const handleChange = (e, playlistID, videoId) => {
         dispatch({ type: TOGGLE_PLAYLIST_ITEM, payload: { playlistID, videoId } })
@@ -30,15 +32,17 @@ const Modal = ({ setShowModal, videoId }) => {
         setFormData({ ...formData, [name]: value })
     }
 
-    const addNewPlaylist = (e) => {
+    const addNewPlaylist = async (e) => {
         e.preventDefault();
         try {
-            dispatch({ type: ADD_NEW_PLAYLIST, payload: formData })
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/playlist`, { "name": name, "videoID": videoId }, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: ADD_NEW_PLAYLIST, payload: response.data.playlists })
         } catch (err) {
-            console.error(err);
+            const error = err.response.data.message;
+            toast.error(`${error}`);
         }
         finally {
-            setFormData({ ...formData, name: '', id: '', videos: [] })
+            setFormData({ ...formData, name: '', videos: "" })
         }
 
     }
@@ -56,9 +60,9 @@ const Modal = ({ setShowModal, videoId }) => {
                 <div className="modal-body">
                     {
                         playlist.length > 0 ? (
-                            playlist.map(({ id, name, videos }) => (
-                                <div className={styles.one_playlist} key={id}>
-                                    <input type="checkbox" onChange={(e) => handleChange(e, id, videoId)} checked={check(videoId, videos)} />
+                            playlist.map(({ _id, name, videos }) => (
+                                <div className={styles.one_playlist} key={_id}>
+                                    <input type="checkbox" onChange={(e) => handleChange(e, _id, videoId)} checked={check(videoId, videos)} />
                                     <p>{name}</p>
                                 </div>
                             ))
