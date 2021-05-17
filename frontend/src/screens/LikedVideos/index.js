@@ -20,8 +20,6 @@ const LikedVideos = () => {
         }
     }
 
-    console.log({ liked })
-
     return (
         <>
             <Navbar landing={false} />

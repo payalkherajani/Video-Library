@@ -28,7 +28,6 @@ const togglePlaylist = async (req, res) => {
                 const videoPresent = p.videos.some((v) => v == videoID)
                 if (videoPresent) {
                     const filteredVideo = p.videos.filter((v) => v != videoID)
-                    console.log({ filteredVideo }, "matched")
                     return { "_id": p._id, "name": p.name, "videos": filteredVideo }
                 }
                 else {
@@ -45,7 +44,6 @@ const togglePlaylist = async (req, res) => {
         const final = await Playlist.findOneAndUpdate({ _id: lists._id }, { $set: updateDetails }, { new: true })
         res.status(200).send(final)
     } catch (err) {
-        console.log(err)
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }
@@ -70,7 +68,6 @@ const addNewPlaylist = async (req, res) => {
         await pList.save()
         res.status(200).send(pList)
     } catch (err) {
-        console.log(err)
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }

@@ -14,9 +14,7 @@ const SinglePlaylist = () => {
 
     const deleteFromPlaylist = async (playlistId, videoID) => {
         try {
-            console.log(playlistId, videoID)
             const { data: { playlists } } = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/playlist/${playlistId}/${videoID}`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
-            console.log({ playlists })
             dispatch({ type: REMOVE_ITEM_FROM_PLAYLIST, payload: playlists })
         } catch (err) {
             const error = err.response.data.message;
@@ -35,7 +33,6 @@ const SinglePlaylist = () => {
     }
 
     const findVideosofPlaylist = [...playlist].filter((one) => one._id === id);
-    console.log({ findVideosofPlaylist })
 
     return (
         <>
