@@ -25,22 +25,18 @@ export const reducer = (state, action) => {
             return { ...state, error: payload, loading: false }
 
         case ADD_TO_HISTORY:
-            return { ...state, history: payload }
-
         case REMOVE_FROM_HISTORY:
+        case CLEAR_HISTORY:
+        case GET_ALL_HISTORYVIDEOS:
             return { ...state, history: payload }
 
-        case CLEAR_HISTORY:
-            return { ...state, history: payload }
 
         case ADD_WATCH_LATER:
-            return { ...state, watchlater: payload }
-
         case REMOVE_WATCH_LATER:
+        case CLEAR_WATCH_LATER:
+        case GET_ALL_VIDEOS_OF_WATCHLATER:
             return { ...state, watchlater: payload }
 
-        case CLEAR_WATCH_LATER:
-            return { ...state, watchlater: payload }
 
         case SEARCH_KEYWORD:
             const toSearch = payload.toLowerCase();
@@ -50,21 +46,15 @@ export const reducer = (state, action) => {
             return { ...state, keyword: '' }
 
         case LIKE_VIDEO:
-            return { ...state, liked: payload }
-
         case REMOVE_LIKE_VIDEO:
+        case GET_ALL_LIKEDVIDEOS:
             return { ...state, liked: payload }
 
         case TOGGLE_PLAYLIST_ITEM:
-            return { ...state, playlist: payload }
-
         case ADD_NEW_PLAYLIST:
-            return { ...state, playlist: payload }
-
         case DELETE_PLAYLIST:
-            return { ...state, playlist: payload }
-
         case REMOVE_ITEM_FROM_PLAYLIST:
+        case GET_ALL_PLAYLIST:
             return { ...state, playlist: payload }
 
         case SET_TOKEN_IN_LOCALSTORAGE:
@@ -81,17 +71,6 @@ export const reducer = (state, action) => {
         case GET_ALL_CHANNELS:
             return { ...state, channels: payload }
 
-        case GET_ALL_VIDEOS_OF_WATCHLATER:
-            return { ...state, watchlater: payload }
-
-        case GET_ALL_LIKEDVIDEOS:
-            return { ...state, liked: payload }
-
-        case GET_ALL_HISTORYVIDEOS:
-            return { ...state, history: payload }
-
-        case GET_ALL_PLAYLIST:
-            return { ...state, playlist: payload }
         default:
             return state
 
