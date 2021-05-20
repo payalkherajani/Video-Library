@@ -23,3 +23,12 @@
 .unorderedlist{
     display: flex;
 }
+
+.icon_styling{
+    color: white;
+    font-size: 2rem;
+}
+
+.icon_red{
+    color: red;
+}

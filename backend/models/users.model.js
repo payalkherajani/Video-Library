@@ -10,7 +10,8 @@ const userModel = new Schema(
         },
         email: {
             type: String,
-            required: "Email is required"
+            required: "Email is required",
+            unique: true
         },
         otp: {
             type: Number,

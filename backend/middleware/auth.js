@@ -8,9 +8,9 @@ export const auth = async (req, res, next) => {
             return res.status(401).json({ success: false, message: 'No token, authorization denied' })
         }
 
-        const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+        const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
 
-        req.user = decoded.id;
+        req.user = decodedToken.id;
         const id = req.user;
 
         const verifiedUser = await User.findOne({ _id: id });

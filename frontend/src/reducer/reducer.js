@@ -65,7 +65,7 @@ export const reducer = (state, action) => {
             return { ...state, user: payload }
 
         case REMOVE_TOKEN_FROM_LOCALSTORAGE:
-            localStorage.clear('token');
+            localStorage.removeItem('token')
             return state
 
         case GET_ALL_CHANNELS:

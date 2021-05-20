@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './navbar.module.css';
 import Searchbar from '../searchbar';
 import { Link } from 'react-router-dom';
-import avatar from '../../assets/avatar1.jpg';
 import useCustomContext from '../../customHooks/Hook';
 
 const Navbar = ({ setOpen, landing }) => {
