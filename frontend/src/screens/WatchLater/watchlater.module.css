@@ -40,6 +40,9 @@
     justify-content: center;
     margin-top: 2rem;
 }
+.player_height{
+    height: 18.75rem;
+}
 @media only screen and (min-width: 768px){
     .watchlater__container{
         flex-direction: row;

@@ -104,16 +104,16 @@ const removeVideoFromPlaylist = async (req, res) => {
         const userID = req.user
         const { playlistID, videoID } = req.params
         const requiredPlaylist = await Playlist.findOne({ user: userID })
-        const finalVideos = requiredPlaylist.playlists.map((one) => {
-            if (one._id == playlistID) {
-                const findVideo = one.videos.some((v) => v == videoID)
+        const finalVideos = requiredPlaylist.playlists.map((singlePlaylist) => {
+            if (singlePlaylist._id == playlistID) {
+                const findVideo = singlePlaylist.videos.some((v) => v == videoID)
                 if (findVideo) {
-                    const filtervideo = one.videos.filter((video) => video !== videoID)
-                    return { "_id": one._id, "name": one.name, "videos": filtervideo }
+                    const filtervideo = singlePlaylist.videos.filter((video) => video !== videoID)
+                    return { "_id": singlePlaylist._id, "name": singlePlaylist.name, "videos": filtervideo }
                 }
-                return one
+                return singlePlaylist
             }
-            return one
+            return singlePlaylist
         })
 
         const updateDetails = {

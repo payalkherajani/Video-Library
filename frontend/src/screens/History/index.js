@@ -52,7 +52,7 @@ const History = () => {
                         history.map((id) => (
                             <div key={id} className={styles.history__video}>
 
-                                <div style={{ height: '300px' }}>
+                                <div className={styles.player_height}>
                                     <ReactPlayer
                                         url={`https://www.youtube.com/watch?v=${id}`}
                                         width='100%'

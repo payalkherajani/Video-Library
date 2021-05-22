@@ -11,7 +11,7 @@ const WatchLater = () => {
 
     const { state: { watchlater }, dispatch } = useCustomContext();
 
-    const clearwatchLater = async () => {
+    const clearWatchLater = async () => {
         try {
             const { data: { watchlater } } = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/watchlater`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
             dispatch({ type: CLEAR_WATCH_LATER, payload: watchlater })
@@ -38,7 +38,7 @@ const WatchLater = () => {
             {
                 watchlater.length > 0 ? (
                     <div className={styles.clear_watchlater}>
-                        <button className="btn btn-danger color-red" onClick={() => clearwatchLater()}>
+                        <button className="btn btn-danger color-red" onClick={() => clearWatchLater()}>
                             Clear WatchLater
                     </button>
                     </div>
@@ -54,7 +54,7 @@ const WatchLater = () => {
 
                             return <div key={id} className={styles.watchlater__video}>
 
-                                <div style={{ height: '300px' }}>
+                                <div className={styles.player_height}>
                                     <ReactPlayer
                                         url={`https://www.youtube.com/watch?v=${id}`}
                                         width='100%'

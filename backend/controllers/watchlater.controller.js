@@ -4,7 +4,7 @@ import _ from 'lodash';
 //@route   GET api/watchlater
 //@desc    Get All WL Videos
 //@access  Private
-const getAllVideosinWL = async (req, res) => {
+const getAllVideosinWatchLater = async (req, res) => {
     try {
         const id = req.user
         const watchLaterVideos = await WatchLater.findOne({ user: id })
@@ -18,7 +18,7 @@ const getAllVideosinWL = async (req, res) => {
 //@desc    Add Video in watchlater array
 //@access  Private
 
-const addVideoToWL = async (req, res) => {
+const addVideoToWatchLater = async (req, res) => {
     try {
         const id = req.user;
         const allvideos = await WatchLater.findOne({ user: id });
@@ -48,7 +48,7 @@ const addVideoToWL = async (req, res) => {
 //@desc    Remove Video from WL
 //@access  Private
 
-const removeVideo = async (req, res) => {
+const removeVideofromWatchLater = async (req, res) => {
     try {
         const { videoID } = req.params
         const id = req.user;
@@ -72,7 +72,7 @@ const removeVideo = async (req, res) => {
 //@desc    Remove All Videos from WL
 //@access  Private
 
-const clearWL = async (req, res) => {
+const clearWatchLater = async (req, res) => {
     try {
         const id = req.user;
         const allVideos = await WatchLater.findOne({ user: id })
@@ -88,4 +88,4 @@ const clearWL = async (req, res) => {
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }
-export { getAllVideosinWL, addVideoToWL, removeVideo, clearWL }
+export { getAllVideosinWatchLater, addVideoToWatchLater, removeVideofromWatchLater, clearWatchLater }

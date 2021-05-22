@@ -1,10 +1,10 @@
 import express from 'express';
-import { getAllVideosinWL, addVideoToWL, removeVideo, clearWL } from '../controllers/watchlater.controller.js'
+import { getAllVideosinWatchLater, addVideoToWatchLater, removeVideofromWatchLater, clearWatchLater } from '../controllers/watchlater.controller.js'
 const router = express.Router();
 
-router.get('/', getAllVideosinWL);
-router.post('/', addVideoToWL);
-router.delete('/:videoID', removeVideo);
-router.delete('/', clearWL);
+router.get('/', getAllVideosinWatchLater);
+router.post('/', addVideoToWatchLater);
+router.delete('/:videoID', removeVideofromWatchLater);
+router.delete('/', clearWatchLater);
 
 export default router

@@ -1,7 +1,4 @@
-import User from '../models/users.model.js';
-import likedVideos from '../models/likedvideos.model.js'
-import historyVideos from '../models/history.model.js'
-import Playlist from '../models/playlists.model.js'
+import { User, likedVideos, historyVideos, Playlist } from '../models/index.js'
 import { mail } from '../utils/mail.js';
 import { generateOTP } from '../utils/generateOTP.js';
 import { OTPMail } from '../utils/sendOTPMail.js';
