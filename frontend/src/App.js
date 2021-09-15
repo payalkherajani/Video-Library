@@ -21,7 +21,7 @@ const App = () => {
           <PrivateRoute path="/videos/liked" element={<LikedVideos />} />
           <PrivateRoute path="/playlists" element={<Playlists />} />
           <PrivateRoute path="/playlist/:id" element={<SinglePlaylist />} />
-          {/* <Route path="/register" element={<Register />} /> */}
+          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </Router>
