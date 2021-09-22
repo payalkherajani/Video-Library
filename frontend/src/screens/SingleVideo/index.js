@@ -103,13 +103,11 @@ const SingleVideo = () => {
                                 check(videoId) ? (
                                     <>
                                         <i className="fas fa-thumbs-up color-blue"></i>
-                                        {" "} {singleVideo.statistics.likeCount = Number(singleVideo.statistics.likeCount)}
                                     </>
 
                                 ) : (
                                     <>
                                         <i className="fas fa-thumbs-up" onClick={() => addtoLikedVideos(videoId)}></i>
-                                        {" "} {singleVideo.statistics.likeCount}
                                     </>
                                 )
                             }

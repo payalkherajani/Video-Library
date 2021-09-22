@@ -12,7 +12,7 @@ const App = () => {
     <div className="App">
       <Router>
         <Routes>
-          <Navigate path="/" to="/login" />
+          <Route path="/" element={<Login />} />
           <PrivateRoute path="/landing" element={<Landing />} />
           <PrivateRoute path="/channel/:id" element={<Videos />} />
           <PrivateRoute path="/video/watch" element={<SingleVideo />} />
