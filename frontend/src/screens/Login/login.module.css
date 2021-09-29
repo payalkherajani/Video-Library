@@ -41,6 +41,9 @@ form{
     padding: 10px 20px;
     margin-top: 1rem;
   }
+  .login_button:hover{
+      background-color: gray;
+  }
 
   .form_container{
       width: 100%;
