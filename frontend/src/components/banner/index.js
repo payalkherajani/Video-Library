@@ -28,7 +28,7 @@ const Banner = ({ channelId }) => {
             {
                 bannerUrl && <img src={bannerUrl} alt="banner" className={styles.banner__image} />
             }
-            <Link to={{ pathname: `/channel/${channelId}` }}><button className={`btn ${styles.position_up}`}><i className="fas fa-arrow-alt-circle-left"></i> Go Back</button></Link>
+            <Link to={{ pathname: `/channel/${channelId}` }}><button className={`btn btn-info ${styles.position_up}`}><i className="fas fa-arrow-alt-circle-left"></i> Go Back</button></Link>
         </div>
     )
 }

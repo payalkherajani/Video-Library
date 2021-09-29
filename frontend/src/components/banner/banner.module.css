@@ -1,9 +1,11 @@
 .banner_container{
     height: 100%;
+    display: flex;
+    justify-content: center;
 }
 .banner__image{
     height: 100%;
-    width: 100%;
+    width: 70%;
 }
 .position_up{
     position: absolute;

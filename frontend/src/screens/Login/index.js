@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './login.module.css';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import OtpInput from 'react-otp-input';
 import { toast } from 'react-toastify';
 import useCustomContext from '../../customHooks/Hook';
@@ -8,6 +8,9 @@ import axios from 'axios';
 import { SET_TOKEN_IN_LOCALSTORAGE } from '../../constants/type';
 
 const Login = () => {
+
+    const navigate = useNavigate()
+
     const [show, setShow] = useState(false);
     const { dispatch } = useCustomContext();
     const [formData, setFormData] = useState({
@@ -53,6 +56,17 @@ const Login = () => {
         setFormData({ ...formData, otp: Number(otp) })
     }
 
+    const guestLoginFunction = async () => {
+        try {
+            const { data: { token } } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/guestlogin`);
+            dispatch({ type: SET_TOKEN_IN_LOCALSTORAGE, payload: token })
+            navigate('/landing')
+        } catch (err) {
+            console.log(err)
+            toast.error(`Something went wrong in login guest user`);
+        }
+    }
+
     return (
         localStorage.getItem('token') ? (<Navigate to="/landing" />) : (
             <div className={styles.register_div}>
@@ -61,24 +75,29 @@ const Login = () => {
                     <div className={styles.form_div}>
                         {
                             show === false ? (
-                                <form onSubmit={onGenerateOTP} style={{ padding: "1rem" }}>
-                                    <h1 className={styles.heading}>Login</h1>
+                                <div>
 
-                                    <div className={styles.form_container}>
-                                        <input
-                                            className={styles.input_login}
-                                            placeholder="Email"
-                                            type="email"
-                                            name="email"
-                                            value={email}
-                                            onChange={handleFormData}
-                                            required
-                                        />
-                                    </div>
-                                    <button className={`btn btn-primary ${styles.login_button}`}>Generate OTP</button>
-                                    <p style={{ marginTop: '1rem' }}>Note:  You may get OTP in Inbox/spam folder of your registered mail</p>
-                                    <p className={styles.check_status}> Don't have Account ? <Link to='/register' className={styles.text_white}>REGISTER</Link> </p>
-                                </form>
+                                    <form onSubmit={onGenerateOTP} style={{ padding: "1rem" }}>
+                                        <h1 className={styles.heading}>Login</h1>
+
+                                        <div className={styles.form_container}>
+                                            <input
+                                                className={styles.input_login}
+                                                placeholder="Email"
+                                                type="email"
+                                                name="email"
+                                                value={email}
+                                                onChange={handleFormData}
+                                                required
+                                            />
+                                        </div>
+                                        <button className={`btn btn-primary ${styles.login_button}`}>Generate OTP</button>
+                                        <p style={{ marginTop: '1rem' }}>Note:  You may get OTP in Inbox/spam folder of your registered mail</p>
+                                        <p className={styles.check_status}> Don't have Account ? <Link to='/register' className={styles.text_white}>REGISTER</Link> </p>
+                                    </form>
+
+                                    <button className={`btn btn-info ${styles.login_button}`} onClick={guestLoginFunction}>Guest Login</button>
+                                </div>
                             ) : (
                                 <form onSubmit={loginUser}>
                                     <h1 className={styles.heading}>Login</h1>

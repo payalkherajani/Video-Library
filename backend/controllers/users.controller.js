@@ -145,4 +145,23 @@ const getUserByID = async (req, res) => {
     }
 }
 
-export { register, generatedOTP, login, getUserByID };
+const guestLogin = async (req, res) => {
+    try {
+
+        const email = 'guestuser@gmail.com'
+
+        const isGuestUserPresent = await User.findOne({ email })
+
+        if (isGuestUserPresent) {
+            const token = generateJWToken(isGuestUserPresent._id);
+            return res.status(200).send({ token })
+        }
+
+        res.status(400).json({ success: false, message: `Guest User Don't Exists` })
+
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server Error' })
+    }
+}
+
+export { register, generatedOTP, login, getUserByID, guestLogin };

@@ -55,6 +55,7 @@ const Modal = ({ setShowModal, videoId }) => {
 
     return (
         <div className={styles.modal}>
+
             <div className="modal">
 
                 <div className="modal-header">
