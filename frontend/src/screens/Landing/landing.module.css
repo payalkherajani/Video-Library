@@ -1,9 +1,10 @@
 .landing_container{
     min-height: 100vh;
     text-align: center;
+    padding: 2rem;
 }
 .landing__heading{
-    letter-spacing: 5px;
+    letter-spacing: 0.3rem;
 }
 
 .landing__cards{

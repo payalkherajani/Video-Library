@@ -13,7 +13,7 @@ const Playlists = () => {
 
             <div className={styles.playlists}>
                 {
-                    playlist.map((list) => <PlaylistCard list={list} key={list.id} />)
+                    playlist.map((list) => <PlaylistCard list={list} key={list._id} />)
                 }
             </div>
 

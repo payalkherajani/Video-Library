@@ -9,13 +9,8 @@ const Banner = ({ channelId }) => {
 
     const getBannerImage = async () => {
         try {
-            const response = await axios.get(`https://www.googleapis.com/youtube/v3/channels?part=brandingSettings&id=${channelId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`);
-
-            if (response.status === 200) {
-                const { data: { items } } = response;
-                const bannerimage = items[0].brandingSettings.image.bannerExternalUrl
-                setBannerUrl((bannerUrl) => bannerimage);
-            }
+            const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/videos/banner/${channelId}`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            setBannerUrl((bannerUrl) => data);
         } catch (err) {
             console.error(err);
         }

@@ -1,8 +1,18 @@
 import React from 'react';
 import styles from './drawer.module.css';
 import { Link } from 'react-router-dom';
+import { REMOVE_TOKEN_FROM_LOCALSTORAGE } from '../../constants/type';
+import useCustomContext from '../../customHooks/Hook';
+
 
 const Drawer = () => {
+
+    const { dispatch } = useCustomContext()
+
+    const logout = () => {
+        dispatch({ type: REMOVE_TOKEN_FROM_LOCALSTORAGE })
+    }
+
     return (
         <div className={styles.drawer_container}>
             <ul className={styles.drawer__contents}>
@@ -39,6 +49,13 @@ const Drawer = () => {
                     <div className={styles.list__item}>
                         <i className="fas fa-list"></i>
                         <li>Playlists</li>
+                    </div>
+                </Link>
+
+                <Link to={{ pathname: '/login' }} className="color-white">
+                    <div className={styles.list__item} onClick={() => logout()}>
+                        <i className="fas fa-sign-out-alt"></i>
+                        <li>Logout</li>
                     </div>
                 </Link>
 

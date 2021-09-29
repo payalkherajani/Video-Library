@@ -2,31 +2,32 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 5px;
+    padding: 0.6rem 0.3rem;
 }
 
 .start{
     display: flex;
     align-items: center;
-    gap: 5px;
-    margin-left: 5px;
+    gap: 0.3rem;
+    margin-left: 0.3rem;
 }
 
 .center{
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 0.3rem;
 }
 .heading{
     color: white;
 }
 
 .end{
-    margin-right: 5px;
+    margin-right: 0.3rem;
+    display: none;
 }
 .custom__navbar{
     display: flex;
-    padding: 10px 5px;
+    padding: 0.6rem 0.3rem;
     justify-content: center;
 }
 .navbar__items{
@@ -43,6 +44,10 @@
 @media only screen and (min-width:768px){
     .start , .center ,  .end{
         font-size: 1.5rem;
-        gap: 10px;
+        gap: 0.6rem;
+    }
+    .end{
+        display: block;
+        margin-right: 1rem;
     }
 }

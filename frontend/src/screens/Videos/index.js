@@ -1,29 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import useCustomContext from '../../customHooks/Hook';
-import { VIDEOS_LIST_FAILURE, GET_VIDEOS_LIST_REQUEST, VIDEOS_LIST_SUCCESS } from '../../constants/type';
+import { VIDEOS_LIST_FAILURE, GET_VIDEOS_LIST_REQUEST, VIDEOS_LIST_SUCCESS, GET_ALL_VIDEOS_OF_WATCHLATER, GET_ALL_LIKEDVIDEOS, GET_ALL_HISTORYVIDEOS, GET_ALL_PLAYLIST } from '../../constants/type';
 import axios from 'axios';
-import { Navbar, Main, Drawer } from '../../components';
+import { Navbar, Main, Drawer, Footer } from '../../components';
 import styles from './videos.module.css';
+import { toast } from 'react-toastify';
 
 const Videos = () => {
     const { id } = useParams();
-    const { dispatch } = useCustomContext();
+    const { state, dispatch } = useCustomContext();
     const [open, setOpen] = useState(false);
 
     const getVideosofChannel = async (id) => {
-
         try {
             dispatch({ type: GET_VIDEOS_LIST_REQUEST })
-
-            const { data: { items } } = await axios.get(`https://www.googleapis.com/youtube/v3/channels?id=${id}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&part=contentDetails`);
-
-            const uploadId = items[0].contentDetails.relatedPlaylists.uploads
-
-            const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${uploadId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&fields=items(id,snippet(channelId,title,description,publishedAt,resourceId.videoId))&part=snippet&maxResults=10`);
-
-            dispatch({ type: VIDEOS_LIST_SUCCESS, payload: data.items });
-
+            const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/videos/${id}`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: VIDEOS_LIST_SUCCESS, payload: data });
         } catch (err) {
             dispatch({ type: VIDEOS_LIST_FAILURE, payload: 'Something went Wrong' })
         }
@@ -32,6 +25,66 @@ const Videos = () => {
     useEffect(() => {
         getVideosofChannel(id)
     }, [])
+
+    const getWatchLaterVideos = async () => {
+        try {
+            const { data: { watchlater } } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/watchlater`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: GET_ALL_VIDEOS_OF_WATCHLATER, payload: watchlater })
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
+    }
+
+    useEffect(() => {
+        getWatchLaterVideos()
+    }, [])
+
+
+    const getLikedVideos = async () => {
+        try {
+            const { data: { likedvideos } } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/likedvideos`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: GET_ALL_LIKEDVIDEOS, payload: likedvideos })
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
+    }
+
+    useEffect(() => {
+        getLikedVideos()
+    }, [])
+
+
+    const getAllHistoryVideos = async () => {
+        try {
+            const { data: { historyvideos } } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/history`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            dispatch({ type: GET_ALL_HISTORYVIDEOS, payload: historyvideos })
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
+    }
+    useEffect(() => {
+        getAllHistoryVideos()
+    }, [])
+
+    const getPlaylists = async () => {
+        try {
+            const { data: { playlists } } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/playlist`, {
+                headers: { 'x-auth-token': localStorage.getItem('token') }
+            })
+            dispatch({ type: GET_ALL_PLAYLIST, payload: playlists })
+        } catch (err) {
+            const error = err.response.data.message;
+            toast.error(`${error}`);
+        }
+    }
+
+    useEffect(() => {
+        getPlaylists()
+    }, [])
+
 
     return (
         <>
@@ -46,6 +99,7 @@ const Videos = () => {
                     <Main />
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

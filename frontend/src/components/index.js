@@ -6,3 +6,4 @@ export { default as Drawer } from './drawer';
 export { default as Banner } from './banner';
 export { default as Modal } from './modal';
 export { default as PlaylistCard } from './playlistcard';
+export { default as Footer } from './footer';

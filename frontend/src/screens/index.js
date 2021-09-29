@@ -6,3 +6,5 @@ export { default as WatchLater } from './WatchLater';
 export { default as LikedVideos } from './LikedVideos';
 export { default as Playlists } from './Playlists';
 export { default as SinglePlaylist } from './SinglePlaylist';
+export { default as Register } from './Register';
+export { default as Login } from './Login';
