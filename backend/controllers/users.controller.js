@@ -62,7 +62,7 @@ const register = async (req, res) => {
             user: user._id,
             playlists: [
                 {
-                    name: 'fav',
+                    name: req.body.name,
                     videos: []
                 }
             ]
@@ -75,6 +75,7 @@ const register = async (req, res) => {
         res.status(200).json({ success: true, message: 'Registration Successfull ' })
 
     } catch (err) {
+        console.log(err)
         res.status(500).json({ success: false, message: 'Server Error' })
     }
 }

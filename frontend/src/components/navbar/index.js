@@ -13,7 +13,7 @@ const Navbar = ({ setOpen, landing }) => {
             (
                 <div className={styles.navbar_wrapper}>
                     <div className={styles.start}>
-                        <i className="fas fa-bars" onClick={() => setOpen((open) => !open)}></i>
+                        <i className="fas fa-bars" onClick={() => setOpen((open) => !open)} style={{ cursor: 'pointer' }}></i>
                         <Link to='/'><p className={styles.heading}><strong>Khidki</strong></p></Link>
                     </div>
 
@@ -31,31 +31,31 @@ const Navbar = ({ setOpen, landing }) => {
 
                     <ul className={styles.navbar__items}>
                         <Link to={{ pathname: '/' }} className="color-white">
-                            <div className={styles.list__item}>
+                            <div className={styles.list__item} title="home">
                                 <i className="fas fa-home"></i>
                             </div>
                         </Link>
 
                         <Link to={{ pathname: '/videos/watchlater' }} className="color-white">
-                            <div className={styles.list__item}>
+                            <div className={styles.list__item} title="watch later">
                                 <i className="fas fa-clock"></i>
                             </div>
                         </Link>
 
                         <Link to={{ pathname: '/videos/liked' }} className="color-white">
-                            <div className={styles.list__item}>
+                            <div className={styles.list__item} title="liked videos">
                                 <i className="fas fa-thumbs-up"></i>
                             </div>
                         </Link>
 
                         <Link to={{ pathname: '/videos/history' }} className="color-white">
-                            <div className={styles.list__item}>
+                            <div className={styles.list__item} title="history">
                                 <i className="fas fa-history"></i>
                             </div>
                         </Link>
 
                         <Link to={{ pathname: '/playlists' }} className="color-white">
-                            <div className={styles.list__item}>
+                            <div className={styles.list__item} title="playlist">
                                 <i className="fas fa-list"></i>
                             </div>
                         </Link>
