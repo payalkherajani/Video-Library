@@ -23,9 +23,12 @@ const WatchLater = () => {
 
     const deleteFromWatchLater = async (id) => {
         try {
-            const { data: { watchlater } } = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/watchlater/${id}`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/watchlater/${id}`, { headers: { 'x-auth-token': localStorage.getItem('token') } })
+            const { data: { watchlater } } = response
             dispatch({ type: REMOVE_WATCH_LATER, payload: watchlater })
-            toast.success("Removed from Watch Later")
+            if (response.status === 200) {
+                toast.success("Removed from Watch Later")
+            }
         } catch (err) {
             const error = err.response.data.message;
             toast.error(`${error}`);
@@ -40,7 +43,7 @@ const WatchLater = () => {
                     <div className={styles.clear_watchlater}>
                         <button className="btn btn-danger color-red" onClick={() => clearWatchLater()}>
                             Clear WatchLater
-                    </button>
+                        </button>
                     </div>
                 )
 

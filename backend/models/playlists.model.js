@@ -10,8 +10,7 @@ const PlaylistModel = new Schema(
         playlists: [
             {
                 name: {
-                    type: String,
-                    unique: true
+                    type: String
                 },
                 videos: {
                     type: Array

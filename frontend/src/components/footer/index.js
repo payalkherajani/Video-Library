@@ -30,7 +30,7 @@ const Footer = () => {
                     </li>
 
                     <li className={styles.list_item}>
-                        <a href="https://www.instagram.com/" target="_blank">
+                        <a href="https://www.instagram.com/payal_kherajani/" target="_blank">
                             <i className={`fab fa-instagram ${styles.icon_styling}`}></i>
                         </a>
                     </li>
